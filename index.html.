@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Игровой клуб</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #121826;
+  color: white;
+  text-align: center;
+}
+
+header {
+  padding: 18px;
+  background: #202a3b;
+}
+
+h1 { margin: 0 0 10px; }
+
+#balance {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 12px;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #3b82f6;
+  color: white;
+}
+
+.secondary { background: #475569; }
+
+.game {
+  display: none;
+  max-width: 700px;
+  margin: 18px auto;
+  padding: 20px;
+}
+
+.game.active { display: block; }
+
+.cardbox {
+  background: #202a3b;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.slots {
+  font-size: 50px;
+  min-height: 80px;
+  margin: 20px;
+}
+
+input {
+  width: 100px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎮 Игровой клуб</h1>
+  <div id="balance">🪙 Монеты: 1000</div>
+  <small>Только игровая валюта</small>
+</header>
+
+<div class="tabs">
+  <button onclick="showGame('slots')">🎰 Автоматы</button>
+  <button onclick="showGame('poker')">♠️ Покер</button>
+  <button onclick="showGame('durak')">🃏 Дурак</button>
+</div>
+
+<!-- АВТОМАТЫ -->
+<section id="slots" class="game active">
+  <div class="cardbox">
+    <h2>🎰 Игровые автоматы</h2>
+
+    <button class="secondary" onclick="setMachine(0)">🍒 Классика</button>
+    <button class="secondary" onclick="setMachine(1)">💎 Джекпот</button>
+
+    <h3 id="machineName">🍒 Классика</h3>
+
+    <div class="slots" id="reels">🍒 🍋 🍇</div>
+
+    <p>
+      Ставка:
+      <input id="slotBet" type="number" value="20" min="1">
+    </p>
+
+    <button onclick="spin()">КРУТИТЬ 🎰</button>
+    <p id="slotMsg"></p>
+  </div>
+</section>
+
+<!-- ПОКЕР -->
+<section id="poker" class="game">
+  <div class="cardbox">
+    <h2>♠️ Упрощённый покер</h2>
+
+    <p>
+      Ставка:
+      <input id="pokerBet" type="number" value="50" min="1">
+    </p>
+
+    <h3>Ты: <span id="playerCards">?</span></h3>
+    <h3>Бот: <span id="botCards">?</span></h3>
+
+    <button onclick="playPoker()">Раздать карты</button>
+    <p id="pokerMsg"></p>
+  </div>
+</section>
+
+<!-- ДУРАК -->
+<section id="durak" class="game">
+  <div class="cardbox">
+    <h2>🃏 Дурак — мини-версия</h2>
+
+    <p>
+      Ставка:
+      <input id="durakBet" type="number" value="30" min="1">
+    </p>
+
+    <h3>Ты: <span id="myDurak">?</span></h3>
+    <h3>Бот: <span id="botDurak">?</span></h3>
+
+    <button onclick="playDurak()">Играть раунд</button>
+    <p id="durakMsg"></p>
+  </div>
+</section>
+
+<script>
+let balance = Number(localStorage.getItem("clubBalance")) || 1000;
+let machine = 0;
+
+const machines = [
+  {
+    name: "🍒 Классика",
+    icons: ["🍒", "🍋", "🍇", "🔔", "⭐"],
+    mult: 8
+  },
+  {
+    name: "💎 Джекпот",
+    icons: ["💎", "7️⃣", "🍀", "👑", "💰"],
+    mult: 15
+  }
+];
+
+function save() {
+  localStorage.setItem("clubBalance", balance);
+  document.getElementById("balance").textContent =
+    "🪙 Монеты: " + balance;
+}
+
+function showGame(id) {
+  document.querySelectorAll(".game").forEach(function(game) {
+    game.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+}
+
+function getBet(id) {
+  let value = Math.floor(Number(document.getElementById(id).value));
+
+  if (value <= 0 || value > balance) {
+    return 0;
+  }
+
+  return value;
+}
+
+function setMachine(number) {
+  machine = number;
+  document.getElementById("machineName").textContent =
+    machines[number].name;
+}
+
+function spin() {
+  let bet = getBet("slotBet");
+
+  if (!bet) {
+    document.getElementById("slotMsg").textContent =
+      "Недостаточно монет!";
+    return;
+  }
+
+  balance -= bet;
+
+  let icons = machines[machine].icons;
+
+  let result = [
+    icons[Math.floor(Math.random() * icons.length)],
+    icons[Math.floor(Math.random() * icons.length)],
+    icons[Math.floor(Math.random() * icons.length)]
+  ];
+
+  document.getElementById("reels").textContent =
+    result.join(" ");
+
+  let win = 0;
+
+  if (result[0] === result[1] && result[1] === result[2]) {
+    win = bet * machines[machine].mult;
+  } else if (
+    result[0] === result[1] ||
+    result[1] === result[2] ||
+    result[0] === result[2]
+  ) {
+    win = bet * 2;
+  }
+
+  if (win > 0) {
+    balance += win;
+    document.getElementById("slotMsg").textContent =
+      "🎉 Выигрыш: " + win + " монет!";
+  } else {
+    document.getElementById("slotMsg").textContent =
+      "😔 Не повезло!";
+  }
+
+  save();
+}
+
+function randomCard() {
+  return Math.floor(Math.random() * 13) + 2;
+}
+
+function cardName(card) {
+  const names = {
+    11: "В",
+    12: "Д",
+    13: "К",
+    14: "Т"
+  };
+
+  return names[card] || card;
+}
+
+function playPoker() {
+  let bet = getBet("pokerBet");
+
+  if (!bet) {
+    document.getElementById("pokerMsg").textContent =
+      "Недостаточно монет!";
+    return;
+  }
+
+  balance -= bet;
+
+  let player = randomCard();
+  let bot = randomCard();
+
+  document.getElementById("playerCards").textContent =
+    cardName(player) + " ♠";
+
+  document.getElementById("botCards").textContent =
+    cardName(bot) + " ♠";
+
+  if (player > bot) {
+    balance += bet * 2;
+    document.getElementById("pokerMsg").textContent =
+      "🏆 Ты выиграл!";
+  } else if (player === bot) {
+    balance += bet;
+    document.getElementById("pokerMsg").textContent =
+      "🤝 Ничья!";
+  } else {
+    document.getElementById("pokerMsg").textContent =
+      "🤖 Бот выиграл!";
+  }
+
+  save();
+}
+
+function playDurak() {
+  let bet = getBet("durakBet");
+
+  if (!bet) {
+    document.getElementById("durakMsg").textContent =
+      "Недостаточно монет!";
+    return;
+  }
+
+  balance -= bet;
+
+  let player = randomCard();
+  let bot = randomCard();
+
+  document.getElementById("myDurak").textContent =
+    cardName(player) + " ♥";
+
+  document.getElementById("botDurak").textContent =
+    cardName(bot) + " ♥";
+
+  if (player > bot) {
+    balance += bet * 2;
+    document.getElementById("durakMsg").textContent =
+      "🎉 Ты выиграл раунд!";
+  } else if (player === bot) {
+    balance += bet;
+    document.getElementById("durakMsg").textContent =
+      "🤝 Ничья!";
+  } else {
+    document.getElementById("durakMsg").textContent =
+      "😅 Бот выиграл!";
+  }
+
+  save();
+}
+
+save();
+</script>
+
+</body>
+</html>
