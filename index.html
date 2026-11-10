@@ -8,7 +8,7 @@
 *{box-sizing:border-box}
 :root{--gold:#ffd54a;--blue:#397fff;--bg:#080d18}
 body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#253c69 0%,#10192b 43%,#050811 100%);color:white;font-family:Arial,sans-serif;text-align:center}
-header{padding:18px 10px;background:#080c16eF;border-bottom:1px solid #52678c;box-shadow:0 5px 25px #0008}
+header{padding:18px 10px;background:#080c16ef;border-bottom:1px solid #52678c;box-shadow:0 5px 25px #0008}
 .logo{font-size:clamp(30px,7vw,48px);font-weight:1000;letter-spacing:2px;color:var(--gold);text-shadow:0 0 10px #ffae00,0 0 28px #ff9d00}
 .stats{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:12px}
 .stat{background:#18243a;border:1px solid #536888;border-radius:14px;padding:9px 15px;font-weight:bold}
@@ -29,7 +29,6 @@ label{display:inline-flex;align-items:center;gap:7px;background:#101a2b;padding:
 .status,.message{min-height:27px;margin:13px 0;font-weight:bold}
 .pill{background:#101a2b;border:1px solid #4a5f7c;padding:8px 12px;border-radius:12px}
 .gold{color:var(--gold)}
-/* slots */
 .slot-panel{background:radial-gradient(ellipse at center,#593b13,#211707 65%,#100b05);border-color:#d69b30}
 .slot-machine{max-width:650px;margin:15px auto;padding:15px;border:5px ridge #ffcf51;border-radius:24px;background:linear-gradient(135deg,#2a1609,#080606);box-shadow:0 0 30px #ffb00055,inset 0 0 20px #000}
 .reels{display:flex;gap:7px}
@@ -39,7 +38,6 @@ label{display:inline-flex;align-items:center;gap:7px;background:#101a2b;padding:
 .spin{font-size:20px;padding:15px 40px;margin-top:12px;background:linear-gradient(135deg,#ffdf5a,#e68b00);color:#291700;box-shadow:0 5px 0 #8c4c00}
 .win-glow{animation:winGlow .6s infinite alternate}
 @keyframes winGlow{to{box-shadow:0 0 40px #ffe34d,0 0 70px #ff9c00}}
-/* cards */
 .cards{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;min-height:75px;align-items:center}
 .card{width:49px;height:70px;border-radius:8px;border:2px solid #ddd;background:linear-gradient(white,#eee);color:#151515;display:grid;place-items:center;font-size:18px;font-weight:bold;box-shadow:0 4px 8px #0007;cursor:pointer;transition:transform .15s}
 .card:hover{transform:translateY(-8px)}
@@ -50,7 +48,6 @@ label{display:inline-flex;align-items:center;gap:7px;background:#101a2b;padding:
 .pair{display:flex;gap:5px;padding:5px;border:1px solid #ffffff44;border-radius:10px}
 .take{background:linear-gradient(135deg,#df5544,#941b1b)}
 .green{background:linear-gradient(135deg,#18a766,#08603c)}
-/* blackjack */
 .blackjack{background:radial-gradient(ellipse,#176c45,#073a28 70%,#031c14);border:5px ridge #c99b43}
 .bj-cards{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;min-height:110px}
 .bj-card{width:65px;height:94px;padding:6px;border-radius:10px;background:linear-gradient(white,#e7e7e7);color:#111;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 6px 12px #0008;animation:deal .25s ease}
@@ -58,7 +55,6 @@ label{display:inline-flex;align-items:center;gap:7px;background:#101a2b;padding:
 .bj-card.red-card{color:#d41e32}
 .hidden-card{background:repeating-linear-gradient(45deg,#1d4dbb 0 8px,#102b76 8px 16px);color:white;align-items:center;justify-content:center;font-size:32px}
 .hit{background:#277be8}.stand{background:#15965a}.new-round{background:#c2750a}
-/* mines */
 .mines-grid{width:min(100%,570px);margin:18px auto;display:grid;gap:5px;padding:7px;border-radius:15px;background:#050811}
 .mine-cell{min-width:0;aspect-ratio:1;padding:0;border-radius:8px;background:linear-gradient(145deg,#465c7d,#1b293e);border:1px solid #7589a7;font-size:clamp(12px,4vw,25px)}
 .mine-cell.safe{background:linear-gradient(145deg,#16a86b,#075a3b);animation:pop .25s}
@@ -66,18 +62,15 @@ label{display:inline-flex;align-items:center;gap:7px;background:#101a2b;padding:
 @keyframes pop{50%{transform:scale(1.12)}}
 @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 .mines-info div{padding:9px;border-radius:10px;background:#0b1422;border:1px solid #35435c}
-/* tap */
 .tap-room{background:radial-gradient(circle at top,#60421b,#171008 70%);border-color:#e4a52a}
 .bitcoin{width:min(55vw,230px);aspect-ratio:1;margin:20px;border-radius:50%;font-size:clamp(95px,24vw,165px);background:radial-gradient(circle at 30% 25%,#fff0ae,#ffb900 52%,#a85b00);border:9px ridge #ffe071;box-shadow:0 12px 0 #854800,0 0 35px #ffae00aa;transition:transform .08s}
 .bitcoin:active{transform:translateY(8px) scale(.96)}
-/* roulette */
 .roulette{background:linear-gradient(145deg,#145b40,#06271e 70%,#03130f);border:3px solid #c89b47}
 .wheel-wrap{position:relative;width:min(82vw,390px);aspect-ratio:1;margin:24px auto}
 .wheel-frame{position:absolute;inset:0;border-radius:50%;padding:10px;background:linear-gradient(135deg,#fff0a0,#a36b13,#ffe27a,#6d4109);box-shadow:0 0 0 5px #442907,0 0 35px #000,0 0 30px #e7ac38aa}
-.wheel{position:relative;width:100%;height:100%;border-radius:50%;border:4px solid #f8d77a;overflow:hidden;will-change:transform;transition:transform 5.8s cubic-bezier(.08,.72,.08,1)}
+.wheel{position:relative;width:100%;height:100%;border-radius:50%;border:4px solid #f8d77a;overflow:hidden;will-change:auto}
 .wheel-number{position:absolute;left:50%;top:50%;width:25px;height:20px;margin:-10px 0 0 -12px;display:grid;place-items:center;font-size:clamp(8px,2.6vw,11px);font-weight:900;color:white;text-shadow:0 1px 3px black;pointer-events:none}
 .wheel-hub{position:absolute;z-index:4;left:50%;top:50%;width:18%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:5px ridge #ffe58b;background:radial-gradient(circle,#fff1a8,#a66b10 65%,#4e2c06);box-shadow:0 0 15px #000}
-.wheel-pointer{position:absolute;z-index:8;left:50%;top:-14px;transform:translateX(-50%);width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:35px solid #fff0a0;filter:drop-shadow(0 3px 3px #000)}
 .ball-track{position:absolute;z-index:6;inset:17px;border-radius:50%;pointer-events:none;transform:rotate(0deg)}
 .ball{position:absolute;left:50%;top:-7px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:radial-gradient(circle at 30% 25%,white,#ddd 50%,#777);box-shadow:0 0 12px white,0 2px 4px black}
 .color-choice{min-width:95px;border:2px solid #ffffff55;opacity:.7}
@@ -86,7 +79,6 @@ label{display:inline-flex;align-items:center;gap:7px;background:#101a2b;padding:
 .roulette-spin{font-size:20px;padding:15px 40px;background:linear-gradient(135deg,#ffe77a,#bc7200);color:#281600;box-shadow:0 5px 0 #754200}
 .roulette-spin:disabled{filter:grayscale(1)}
 .roulette-result{font-size:24px;font-weight:900;min-height:34px}
-@keyframes ballOrbit{0%{transform:rotate(0deg)}100%{transform:rotate(1440deg)}}
 @keyframes jackpotFlash{0%,100%{filter:brightness(1)}50%{filter:brightness(1.8)}}
 .jackpot{animation:jackpotFlash .4s infinite}
 @media(max-width:520px){.panel{padding:14px 9px}.card{width:43px;height:63px}.bj-card{width:57px;height:84px}.tabs button{font-size:12px;padding:10px}}
@@ -190,9 +182,8 @@ label{display:inline-flex;align-items:center;gap:7px;background:#101a2b;padding:
 <section class="game" id="roulette">
  <div class="panel roulette">
   <h2>🎡 EUROPEAN ROULETTE</h2>
-  <p>Выбирай цвет. Шарик определит результат — ставка рассчитывается по выпавшему числу.</p>
+  <p>Колесо неподвижно — вращается только шарик!</p>
   <div class="wheel-wrap">
-   <div class="wheel-pointer"></div>
    <div class="wheel-frame"><div class="wheel" id="wheel"></div></div>
    <div class="ball-track" id="ballTrack"><div class="ball"></div></div>
    <div class="wheel-hub"></div>
@@ -211,7 +202,6 @@ label{display:inline-flex;align-items:center;gap:7px;background:#101a2b;padding:
 </section>
 
 <script>
-/* ОБЩИЕ ФУНКЦИИ */
 let balance=Number(localStorage.getItem('gameCoins'));
 if(!Number.isFinite(balance)||balance<0)balance=1000;
 function save(){
@@ -327,7 +317,7 @@ function playerDurak(i){
  if(dBusy||!dPlayer[i]||dPhase==='end')return;
  let c=dPlayer[i];
  if(dPhase==='playerAttack'){
-  if(dTable.length&& !dTable.some(p=>p.a.r===c.r||p.b&&p.b.r===c.r))return dMsg('Можно подкидывать только карты того же достоинства.');
+  if(dTable.length&&!dTable.some(x=>x.a.r===c.r||x.b&&x.b.r===c.r))return dMsg('Можно подкидывать только карты того же достоинства.');
   if(dTable.length>=6)return dMsg('Больше шести карт за ход нельзя.');
   dPlayer.splice(i,1);dTable.push({a:c,b:null});
   dPhase='botDefend';dBusy=true;renderDurak();
@@ -356,9 +346,8 @@ function botDefend(){
  }
  let c=options[0];dBot.splice(dBot.indexOf(c),1);p.b=c;
  let remaining=dTable.some(x=>!x.b);
- if(remaining){
-  setTimeout(botDefend,500);
- }else{
+ if(remaining)setTimeout(botDefend,500);
+ else{
   dBusy=false;dPhase='playerAttack';
   drawCards(dPlayer);drawCards(dBot);
   dMsg('🤖 Бот отбился. Теперь ты можешь подкинуть карту или нажать «Бито».');
@@ -467,7 +456,9 @@ function startMines(){
  if(mineActive)return;
  let bet=betValue('mineBet'),n=Number(document.getElementById('mineCount').value);
  if(!bet||bet>balance)return mineMsg('❌ Проверь ставку и баланс.');
- mineSize=boardSize(n);balance-=bet;save();mineStake=bet;mineOpened=0;mineMult=1;mineBombs=[];
+ mineSize=boardSize(n);
+ if(n>=mineSize*mineSize)return mineMsg('Слишком много бомб для поля.');
+ balance-=bet;save();mineStake=bet;mineOpened=0;mineMult=1;mineBombs=[];
  while(mineBombs.length<n){let x=Math.floor(Math.random()*mineSize*mineSize);if(!mineBombs.includes(x))mineBombs.push(x);}
  mineActive=true;buildMines();document.querySelectorAll('.mine-cell').forEach(x=>x.disabled=false);
  document.getElementById('mineStart').disabled=true;document.getElementById('mineCashout').disabled=false;
@@ -505,7 +496,7 @@ function endMines(){
 }
 buildMines();
 
-/* TAPALKA */
+/* ТАПАЛКА */
 let tapCount=Number(localStorage.getItem('tapCount'))||0;
 document.getElementById('tapCount').textContent=tapCount;
 function tapBitcoin(){
@@ -513,12 +504,11 @@ function tapBitcoin(){
  document.getElementById('tapCount').textContent=tapCount;
 }
 
-/* РУЛЕТКА — ЕВРОПЕЙСКАЯ, 37 СЕКТОРОВ */
+/* РУЛЕТКА: КОЛЕСО СТОИТ, ДВИЖЕТСЯ ТОЛЬКО ШАРИК */
 const wheelNumbers=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
 const redNumbers=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
 function numberColor(n){return n===0?'green':redNumbers.includes(n)?'red':'black'}
-let rouletteChoice='red',rouletteBusy=false,rouletteRotation=0,ballRotation=0;
-
+let rouletteChoice='red',rouletteBusy=false,ballRotation=0;
 function setupWheel(){
  const wheel=document.getElementById('wheel');
  if(!wheel||wheel.offsetWidth===0)return;
@@ -550,19 +540,16 @@ function spinRoulette(){
  rouletteBusy=true;balance-=bet;save();
  document.getElementById('rouletteSpin').disabled=true;
  document.getElementById('rouletteResult').textContent='🎱 Шарик в движении...';
- rouletteMsg('🎡 Колесо вращается!');
- const index=Math.floor(Math.random()*37),result=wheelNumbers[index],step=360/37;
- const target=(360-(index+.5)*step)%360;
- const current=((rouletteRotation%360)+360)%360;
- const delta=(target-current+360)%360;
- rouletteRotation+=360*8+delta;
- const wheel=document.getElementById('wheel');
+ rouletteMsg('🎱 Шарик вращается вокруг неподвижного колеса!');
+ const index=Math.floor(Math.random()*37),result=wheelNumbers[index];
+ ballRotation+=360*12+Math.random()*360;
  const track=document.getElementById('ballTrack');
- wheel.style.transition='transform 5.8s cubic-bezier(.08,.72,.08,1)';
- wheel.style.transform=`rotate(${rouletteRotation}deg)`;
- ballRotation+=360*11+Math.random()*360;
- track.style.transition='transform 5.8s cubic-bezier(.15,.7,.08,1)';
- track.style.transform=`rotate(${ballRotation}deg)`;
+ track.style.transition='none';
+ track.style.transform=`rotate(${ballRotation-360*12}deg)`;
+ requestAnimationFrame(()=>{
+  track.style.transition='transform 5.8s cubic-bezier(.15,.7,.08,1)';
+  track.style.transform=`rotate(${ballRotation}deg)`;
+ });
  setTimeout(()=>{
   const color=numberColor(result),won=color===rouletteChoice;
   const payout=won?(color==='green'?bet*36:bet*2):0;
