@@ -6,7 +6,7 @@
 <title>GAME CLUB</title>
 <style>
 *{box-sizing:border-box}
-:root{--gold.:#ffd54a;--blue:#397fff}
+:root{--gold:#ffd54a;--blue:#397fff}
 body{margin:0;min-height:100vh;font-family:Arial,sans-serif;color:#fff;text-align:center;background:radial-gradient(circle at 50% -10%,#273b70,#101626 42%,#05070c)}
 header{padding:16px;background:#080b14;border-bottom:1px solid #334155}
 .logo{font-size:clamp(28px,7vw,45px);font-weight:900;color:var(--gold);text-shadow:0 0 20px #c68d00}
@@ -69,7 +69,10 @@ input,select{padding:8px;border-radius:8px;border:0}
 
 <header>
 <div class="logo">🎮 GAME CLUB</div>
-<div class="stats"><div class="stat" id="balance">🪙 Монеты: 1000</div><div class="stat">🎮 Игровые монеты</div></div>
+<div class="stats">
+<div class="stat" id="balance">🪙 Монеты: 1000</div>
+<div class="stat">🎮 Игровые монеты</div>
+</div>
 </header>
 
 <div class="tabs">
@@ -83,8 +86,14 @@ input,select{padding:8px;border-radius:8px;border:0}
 <div class="machine">
 <div class="machine-title" id="machineTitle">🎰 CLASSIC SLOTS</div>
 <div class="settings">
-<label>Автомат: <select id="machineType" onchange="changeMachine()"><option value="classic">🍒 Классический</option><option value="fruit">🍓 Фруктовый</option><option value="diamond">💎 Алмазный</option></select></label>
-<label>Барабаны: <select id="reelCount" onchange="changeMachine()"><option value="3">3</option><option value="5" selected>5</option></select></label>
+<label>Автомат: <select id="machineType" onchange="changeMachine()">
+<option value="classic">🍒 Классический</option>
+<option value="fruit">🍓 Фруктовый</option>
+<option value="diamond">💎 Алмазный</option>
+</select></label>
+<label>Барабаны: <select id="reelCount" onchange="changeMachine()">
+<option value="3">3</option><option value="5" selected>5</option>
+</select></label>
 </div>
 <div class="reel-frame"><div class="reels" id="reels"></div></div>
 <p>Ставка: <input id="slotBet" type="number" value="20" min="1"></p>
@@ -96,12 +105,22 @@ input,select{padding:8px;border-radius:8px;border:0}
 <section class="game" id="durak">
 <div class="durak">
 <h2>🃏 ДУРАК</h2>
-<div class="info"><div class="pill">🂠 Колода: <b id="deckCount">0</b></div><div class="pill">👑 Козырь: <b id="trump">?</b></div><div class="pill">🤖 Карт у бота: <b id="botCount">0</b></div></div>
-<h3>🤖 БОТ</h3><div class="cards" id="botCards"></div>
+<div class="info">
+<div class="pill">🂠 Колода: <b id="deckCount">0</b></div>
+<div class="pill">👑 Козырь: <b id="trump">?</b></div>
+<div class="pill">🤖 Карт у бота: <b id="botCount">0</b></div>
+</div>
+<h3>🤖 БОТ</h3>
+<div class="cards" id="botCards"></div>
 <div class="status" id="durakStatus">Нажми «Новая игра».</div>
 <div class="table" id="table"></div>
-<div class="controls"><button onclick="newGame()">🔄 Новая игра</button><button class="take" id="takeBtn" onclick="takeCards()" disabled>📥 Взять</button><button class="beat" id="beatBtn" onclick="finishRound()" disabled>✅ Бито</button></div>
-<h3>👤 ТВОИ КАРТЫ</h3><div class="cards" id="playerCards"></div>
+<div class="controls">
+<button onclick="newGame()">🔄 Новая игра</button>
+<button class="take" id="takeBtn" onclick="takeCards()" disabled>📥 Взять</button>
+<button class="beat" id="beatBtn" onclick="finishRound()" disabled>✅ Бито</button>
+</div>
+<h3>👤 ТВОИ КАРТЫ</h3>
+<div class="cards" id="playerCards"></div>
 </div>
 </section>
 
@@ -109,10 +128,16 @@ input,select{padding:8px;border-radius:8px;border:0}
 <div class="blackjack-room">
 <div class="bj-title">♠ BLACKJACK ♠</div>
 <div class="bj-status" id="bjStatus">Выбери ставку и начни игру!</div>
-<h3>🎩 ДИЛЕР — <span id="dealerScore">?</span></h3><div class="bj-cards" id="dealerCards"></div>
-<h3>🧑 ТЫ — <span id="playerScore">0</span></h3><div class="bj-cards" id="bjPlayerCards"></div>
+<h3>🎩 ДИЛЕР — <span id="dealerScore">?</span></h3>
+<div class="bj-cards" id="dealerCards"></div>
+<h3>🧑 ТЫ — <span id="playerScore">0</span></h3>
+<div class="bj-cards" id="bjPlayerCards"></div>
 <p>Ставка: <input type="number" id="bjBet" value="25" min="1"></p>
-<div class="bj-controls"><button class="new-round" onclick="startBlackjack()">🃏 НОВАЯ ИГРА</button><button class="hit" id="hitBtn" onclick="hit()" disabled>➕ ВЗЯТЬ</button><button class="stand" id="standBtn" onclick="stand()" disabled>✋ ХВАТИТ</button></div>
+<div class="bj-controls">
+<button class="new-round" onclick="startBlackjack()">🃏 НОВАЯ ИГРА</button>
+<button class="hit" id="hitBtn" onclick="hit()" disabled>➕ ВЗЯТЬ</button>
+<button class="stand" id="standBtn" onclick="stand()" disabled>✋ ХВАТИТ</button>
+</div>
 </div>
 </section>
 
@@ -120,58 +145,477 @@ input,select{padding:8px;border-radius:8px;border:0}
 <div class="mines-room" id="minesRoom">
 <div class="mines-title">💣 БОМБОЧКИ 💎</div>
 <div class="mines-status" id="minesStatus">Выбери ставку и количество бомб!</div>
+
 <div class="mines-settings">
 <label>🪙 Ставка <input type="number" id="mineBet" value="20" min="1"></label>
-<label>💣 Бомб <select id="mineCount"><option value="1">1</option><option value="3">3</option><option value="5" selected>5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="30">30</option></select></label>
+<label>💣 Бомб <select id="mineCount">
+<option value="1">1</option>
+<option value="3">3</option>
+<option value="5" selected>5</option>
+<option value="10">10</option>
+<option value="15">15</option>
+<option value="20">20</option>
+<option value="30">30</option>
+</select></label>
 </div>
-<div class="mines-info"><div>💎 Открыто: <b id="safeOpened">0</b></div><div>📈 Множитель: <b id="mineMultiplier">1.00×</b></div><div>💰 Выигрыш: <b id="mineWin">0</b></div></div>
+
+<div class="mines-info">
+<div>💎 Открыто: <b id="safeOpened">0</b></div>
+<div>📈 Множитель: <b id="mineMultiplier">1.00×</b></div>
+<div>💰 Выигрыш: <b id="mineWin">0</b></div>
+</div>
+
 <div class="mines-grid" id="minesGrid"></div>
-<div class="mines-controls"><button id="mineStart" onclick="startMines()">🚀 НАЧАТЬ ИГРУ</button><button class="mine-cashout" id="mineCashout" onclick="cashoutMines()" disabled>💰 ЗАБРАТЬ</button></div>
+
+<div class="mines-controls">
+<button id="mineStart" onclick="startMines()">🚀 НАЧАТЬ ИГРУ</button>
+<button class="mine-cashout" id="mineCashout" onclick="cashoutMines()" disabled>💰 ЗАБРАТЬ</button>
+</div>
 </div>
 </section>
 
 <script>
 let balance=Number(localStorage.getItem("gameCoins"))||1000;
-function save(){localStorage.setItem("gameCoins",balance);document.getElementById("balance").textContent="🪙 Монеты: "+balance}
-function showGame(id){document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active")}
-function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}}
+
+function save(){
+  localStorage.setItem("gameCoins",balance);
+  document.getElementById("balance").textContent="🪙 Монеты: "+balance;
+}
+
+function showGame(id){
+  document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){
+    let j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+}
+
 save();
 
 /* АВТОМАТЫ */
-const machines={classic:{name:"🎰 CLASSIC SLOTS",icons:["🍒","🍋","🍇","🔔","⭐","7️⃣"]},fruit:{name:"🍓 FRUIT PARTY",icons:["🍓","🍒","🍉","🍇","🍊","🍌"]},diamond:{name:"💎 DIAMOND SLOTS",icons:["💎","🔷","⭐","👑","💰","7️⃣"]}};
+const machines={
+  classic:{name:"🎰 CLASSIC SLOTS",icons:["🍒","🍋","🍇","🔔","⭐","7️⃣"]},
+  fruit:{name:"🍓 FRUIT PARTY",icons:["🍓","🍒","🍉","🍇","🍊","🍌"]},
+  diamond:{name:"💎 DIAMOND SLOTS",icons:["💎","🔷","⭐","👑","💰","7️⃣"]}
+};
+
 let spinning=false;
-function getMachine(){return machines[document.getElementById("machineType").value]}
-function randomIcon(){let a=getMachine().icons;return a[Math.floor(Math.random()*a.length)]}
-function changeMachine(){if(spinning)return;let count=Number(document.getElementById("reelCount").value);document.getElementById("machineTitle").textContent=getMachine().name;let box=document.getElementById("reels");box.innerHTML="";for(let i=0;i<count;i++)box.innerHTML+=`<div class="reel"><div class="strip" id="strip${i}"><div class="symbol">${randomIcon()}</div></div></div>`}
-function spin(){if(spinning)return;let bet=Math.floor(Number(document.getElementById("slotBet").value));if(!bet||bet<1)return slotText("❌ Выбери ставку.");if(bet>balance)return slotText("❌ Недостаточно монет.");balance-=bet;save();spinning=true;document.getElementById("spinBtn").disabled=true;let count=Number(document.getElementById("reelCount").value),results=[];for(let i=0;i<count;i++)results.push(randomIcon());results.forEach((result,i)=>{let strip=document.getElementById("strip"+i),list=[];for(let j=0;j<18+i*5;j++)list.push(randomIcon());list.push(result);strip.innerHTML=list.map(x=>`<div class="symbol">${x}</div>`).join("");strip.style.transition="none";strip.style.transform="translateY(0)";void strip.offsetWidth;setTimeout(()=>{let h=innerWidth<560?92:125;strip.style.transition=`transform ${1.5+i*.45}s cubic-bezier(.12,.8,.15,1)`;strip.style.transform=`translateY(-${(list.length-1)*h}px)`},80)});setTimeout(()=>{let map={};results.forEach(x=>map[x]=(map[x]||0)+1);let max=Math.max(...Object.values(map)),win=0;if(max===results.length)win=bet*(count===5?20:10);else if(max>=4)win=bet*7;else if(max>=3)win=bet*3;else if(count===3&&max===2)win=bet*2;if(win){balance+=win;save();slotText("🎉 ВЫИГРЫШ! +"+win+" 🪙")}else slotText("😔 Не повезло!");spinning=false;document.getElementById("spinBtn").disabled=false},3000+count*400)}
-function slotText(t){document.getElementById("slotMessage").textContent=t}
+
+function getMachine(){
+  return machines[document.getElementById("machineType").value];
+}
+
+function randomIcon(){
+  let a=getMachine().icons;
+  return a[Math.floor(Math.random()*a.length)];
+}
+
+function changeMachine(){
+  if(spinning)return;
+
+  let count=Number(document.getElementById("reelCount").value);
+  document.getElementById("machineTitle").textContent=getMachine().name;
+
+  let box=document.getElementById("reels");
+  box.innerHTML="";
+
+  for(let i=0;i<count;i++){
+    box.innerHTML+=`<div class="reel"><div class="strip" id="strip${i}">
+    <div class="symbol">${randomIcon()}</div></div></div>`;
+  }
+}
+
+function spin(){
+  if(spinning)return;
+
+  let bet=Math.floor(Number(document.getElementById("slotBet").value));
+
+  if(!bet||bet<1)return slotText("❌ Выбери ставку.");
+  if(bet>balance)return slotText("❌ Недостаточно монет.");
+
+  balance-=bet;
+  save();
+
+  spinning=true;
+  document.getElementById("spinBtn").disabled=true;
+
+  let count=Number(document.getElementById("reelCount").value);
+  let results=[];
+
+  for(let i=0;i<count;i++)results.push(randomIcon());
+
+  results.forEach((result,i)=>{
+    let strip=document.getElementById("strip"+i);
+    let list=[];
+
+    for(let j=0;j<18+i*5;j++)list.push(randomIcon());
+    list.push(result);
+
+    strip.innerHTML=list.map(x=>`<div class="symbol">${x}</div>`).join("");
+    strip.style.transition="none";
+    strip.style.transform="translateY(0)";
+
+    void strip.offsetWidth;
+
+    setTimeout(()=>{
+      let h=innerWidth<560?92:125;
+      strip.style.transition=`transform ${1.5+i*.45}s cubic-bezier(.12,.8,.15,1)`;
+      strip.style.transform=`translateY(-${(list.length-1)*h}px)`;
+    },80);
+  });
+
+  setTimeout(()=>{
+    let map={};
+
+    results.forEach(x=>map[x]=(map[x]||0)+1);
+
+    let max=Math.max(...Object.values(map));
+    let win=0;
+
+    if(max===results.length)win=bet*(count===5?20:10);
+    else if(max>=4)win=bet*7;
+    else if(max>=3)win=bet*3;
+    else if(count===3&&max===2)win=bet*2;
+
+    if(win){
+      balance+=win;
+      save();
+      slotText("🎉 ВЫИГРЫШ! +"+win+" 🪙");
+    }else{
+      slotText("😔 Не повезло!");
+    }
+
+    spinning=false;
+    document.getElementById("spinBtn").disabled=false;
+  },3000+count*400);
+}
+
+function slotText(t){
+  document.getElementById("slotMessage").textContent=t;
+}
+
 changeMachine();
 
-/* ДУРАК */
-const suits=["♥","♦","♣","♠"],ranks=["6","7","8","9","10","В","Д","К","Т"];
+/* ДУРАК — АВТОМАТИЧЕСКИЙ ДОБОР КАРТ */
+const suits=["♥","♦","♣","♠"];
+const ranks=["6","7","8","9","10","В","Д","К","Т"];
+
 let deck=[],player=[],bot=[],trumpSuit="",table=[],phase="idle";
-function newGame(){deck=[];suits.forEach(s=>ranks.forEach((r,v)=>deck.push({suit:s,rank:r,value:v})));shuffle(deck);player=[];bot=[];table=[];trumpSuit=deck[deck.length-1].suit;for(let i=0;i<6;i++){player.push(deck.pop());bot.push(deck.pop())}phase="playerAttack";status("🟢 Твой ход! Выбери карту.");renderDurak()}
-function isRed(c){return c.suit==="♥"||c.suit==="♦"}function cardText(c){return c.rank+c.suit}function status(t){document.getElementById("durakStatus").textContent=t}
-function canBeat(d,a){return(d.suit===a.suit&&d.value>a.value)||(d.suit===trumpSuit&&a.suit!==trumpSuit)}
-function renderDurak(){document.getElementById("deckCount").textContent=deck.length;document.getElementById("trump").textContent=trumpSuit;document.getElementById("botCount").textContent=bot.length;document.getElementById("botCards").innerHTML=bot.map(()=>'<div class="card back">🂠</div>').join("");document.getElementById("playerCards").innerHTML=player.map((c,i)=>`<div class="card ${isRed(c)?"red":""} playable" onclick="playerMove(${i})">${cardText(c)}</div>`).join("");document.getElementById("table").innerHTML=table.flatMap(p=>[p.attack,p.defense].filter(Boolean)).map(c=>`<div class="card ${isRed(c)?"red":""}">${cardText(c)}</div>`).join("");document.getElementById("takeBtn").disabled=phase!=="playerDefend";document.getElementById("beatBtn").disabled=!table.length||!table.every(p=>p.defense)}
-function playerMove(i){let c=player[i];if(phase==="playerAttack"){table.push({attack:c,defense:null});player.splice(i,1);phase="botDefend";renderDurak();setTimeout(botDefend,500)}else if(phase==="playerDefend"){let target=table.find(p=>!p.defense);if(!target||!canBeat(c,target.attack))return status("❌ Этой картой нельзя отбиться.");target.defense=c;player.splice(i,1);status("🛡️ Карта отбита!");renderDurak()}}
-function botDefend(){let target=table.find(p=>!p.defense);let options=bot.filter(c=>canBeat(c,target.attack));if(!options.length){table.forEach(p=>bot.push(p.attack));table=[];phase="playerAttack";status("🤖 Бот взял карту. Твой ход!");renderDurak();return}let c=options[0];target.defense=c;bot.splice(bot.indexOf(c),1);phase="playerAttack";status("🤖 Бот отбился.");renderDurak()}
-function takeCards(){table.forEach(p=>{player.push(p.attack);if(p.defense)player.push(p.defense)});table=[];phase="botAttack";status("📥 Ты взял карты.");renderDurak();setTimeout(botAttack,600)}
-function finishRound(){table=[];phase="botAttack";status("✅ БИТО!");renderDurak();setTimeout(botAttack,600)}
-function botAttack(){if(!bot.length)return;let c=bot.shift();table.push({attack:c,defense:null});phase="playerDefend";status("🤖 Бот ходит: "+cardText(c));renderDurak()}
+
+function newGame(){
+  deck=[];
+
+  suits.forEach(s=>ranks.forEach((r,v)=>{
+    deck.push({suit:s,rank:r,value:v});
+  }));
+
+  shuffle(deck);
+
+  player=[];
+  bot=[];
+  table=[];
+
+  trumpSuit=deck[deck.length-1].suit;
+
+  drawCards();
+
+  phase="playerAttack";
+  status("🟢 Твой ход! Выбери карту.");
+  renderDurak();
+}
+
+/* Автоматически добираем карты до 6 */
+function drawCards(){
+  while(player.length<6&&deck.length>0){
+    player.push(deck.pop());
+  }
+
+  while(bot.length<6&&deck.length>0){
+    bot.push(deck.pop());
+  }
+}
+
+function isRed(c){
+  return c.suit==="♥"||c.suit==="♦";
+}
+
+function cardText(c){
+  return c.rank+c.suit;
+}
+
+function status(t){
+  document.getElementById("durakStatus").textContent=t;
+}
+
+function canBeat(d,a){
+  return (d.suit===a.suit&&d.value>a.value)||
+  (d.suit===trumpSuit&&a.suit!==trumpSuit);
+}
+
+function renderDurak(){
+  document.getElementById("deckCount").textContent=deck.length;
+  document.getElementById("trump").textContent=trumpSuit;
+  document.getElementById("botCount").textContent=bot.length;
+
+  document.getElementById("botCards").innerHTML=
+    bot.map(()=>'<div class="card back">🂠</div>').join("");
+
+  document.getElementById("playerCards").innerHTML=
+    player.map((c,i)=>`
+    <div class="card ${isRed(c)?"red":""} playable"
+    onclick="playerMove(${i})">${cardText(c)}</div>`).join("");
+
+  document.getElementById("table").innerHTML=
+    table.flatMap(p=>[p.attack,p.defense].filter(Boolean))
+    .map(c=>`<div class="card ${isRed(c)?"red":""}">${cardText(c)}</div>`).join("");
+
+  document.getElementById("takeBtn").disabled=phase!=="playerDefend";
+  document.getElementById("beatBtn").disabled=!table.length||!table.every(p=>p.defense);
+}
+
+function playerMove(i){
+  let c=player[i];
+
+  if(phase==="playerAttack"){
+    table.push({attack:c,defense:null});
+    player.splice(i,1);
+
+    phase="botDefend";
+    renderDurak();
+
+    setTimeout(botDefend,500);
+  }
+
+  else if(phase==="playerDefend"){
+    let target=table.find(p=>!p.defense);
+
+    if(!target||!canBeat(c,target.attack)){
+      return status("❌ Этой картой нельзя отбиться.");
+    }
+
+    target.defense=c;
+    player.splice(i,1);
+
+    status("🛡️ Карта отбита!");
+    renderDurak();
+  }
+}
+
+function botDefend(){
+  let target=table.find(p=>!p.defense);
+
+  if(!target)return;
+
+  let options=bot.filter(c=>canBeat(c,target.attack));
+
+  if(!options.length){
+    table.forEach(p=>{
+      bot.push(p.attack);
+      if(p.defense)bot.push(p.defense);
+    });
+
+    table=[];
+
+    /* Автоматический добор */
+    drawCards();
+
+    phase="playerAttack";
+    status("🤖 Бот взял карты. Твой ход!");
+    renderDurak();
+    return;
+  }
+
+  let c=options[0];
+
+  target.defense=c;
+  bot.splice(bot.indexOf(c),1);
+
+  phase="playerAttack";
+  status("🤖 Бот отбился.");
+  renderDurak();
+}
+
+function takeCards(){
+  table.forEach(p=>{
+    player.push(p.attack);
+    if(p.defense)player.push(p.defense);
+  });
+
+  table=[];
+
+  drawCards();
+
+  phase="botAttack";
+  status("📥 Ты взял карты. Добор выполнен автоматически!");
+  renderDurak();
+
+  setTimeout(botAttack,600);
+}
+
+function finishRound(){
+  table=[];
+
+  /* После БИТО карты сами добираются */
+  drawCards();
+
+  phase="botAttack";
+  status("✅ БИТО! Карты автоматически добраны.");
+  renderDurak();
+
+  setTimeout(botAttack,600);
+}
+
+function botAttack(){
+  if(!bot.length){
+    checkWinner();
+    return;
+  }
+
+  let c=bot.shift();
+
+  table.push({attack:c,defense:null});
+
+  phase="playerDefend";
+  status("🤖 Бот ходит: "+cardText(c));
+  renderDurak();
+}
+
+function checkWinner(){
+  if(deck.length===0){
+    if(player.length===0)status("🏆 ТЫ ПОБЕДИЛ!");
+    else if(bot.length===0)status("🤖 БОТ ПОБЕДИЛ!");
+  }
+}
 
 /* BLACKJACK */
 let bjDeck=[],bjPlayer=[],bjDealer=[],bjBetValue=0,bjActive=false;
-function startBlackjack(){let bet=Math.floor(Number(document.getElementById("bjBet").value));if(!bet||bet>balance)return bjMessage("❌ Проверь ставку.");balance-=bet;save();bjBetValue=bet;bjActive=true;bjDeck=[];["♠","♥","♦","♣"].forEach(s=>["A","2","3","4","5","6","7","8","9","10","J","Q","K"].forEach(r=>bjDeck.push({rank:r,suit:s})));shuffle(bjDeck);bjPlayer=[bjDeck.pop(),bjDeck.pop()];bjDealer=[bjDeck.pop(),bjDeck.pop()];renderBJ();bjMessage("🃏 Твой ход!");document.getElementById("hitBtn").disabled=false;document.getElementById("standBtn").disabled=false}
-function bjValue(hand){let total=0,aces=0;hand.forEach(c=>{if(c.rank==="A"){total+=11;aces++}else if(["J","Q","K"].includes(c.rank))total+=10;else total+=Number(c.rank)});while(total>21&&aces){total-=10;aces--}return total}
-function makeBJCard(c){let red=c.suit==="♥"||c.suit==="♦";return `<div class="bj-card ${red?"red-card":""}"><b>${c.rank}${c.suit}</b><div style="font-size:36px">${c.suit}</div><b style="text-align:right">${c.rank}</b></div>`}
-function renderBJ(reveal=false){document.getElementById("bjPlayerCards").innerHTML=bjPlayer.map(makeBJCard).join("");document.getElementById("dealerCards").innerHTML=bjDealer.map((c,i)=>i===1&&!reveal&&bjActive?'<div class="bj-card hidden-card">♠</div>':makeBJCard(c)).join("");document.getElementById("playerScore").textContent=bjValue(bjPlayer);document.getElementById("dealerScore").textContent=reveal?bjValue(bjDealer):"?"}
-function hit(){if(!bjActive)return;bjPlayer.push(bjDeck.pop());renderBJ();if(bjValue(bjPlayer)>21)endBJ("💥 ПЕРЕБОР! Ты проиграл.",0)}
-function stand(){if(!bjActive)return;while(bjValue(bjDealer)<17)bjDealer.push(bjDeck.pop());renderBJ(true);let p=bjValue(bjPlayer),d=bjValue(bjDealer);if(d>21||p>d)endBJ("🏆 ТЫ ВЫИГРАЛ!",bjBetValue*2);else if(p===d)endBJ("🤝 НИЧЬЯ!",bjBetValue);else endBJ("😔 Дилер выиграл.",0)}
-function endBJ(msg,payout){bjActive=false;if(payout){balance+=payout;save()}bjMessage(msg);document.getElementById("hitBtn").disabled=true;document.getElementById("standBtn").disabled=true}
-function bjMessage(t){document.getElementById("bjStatus").textContent=t}
 
-/* БОМБОЧКИ — РАЗМЕР ПОЛЯ РАСТЁТ С КОЛИЧЕСТВОМ БОМБ */
+function startBlackjack(){
+  let bet=Math.floor(Number(document.getElementById("bjBet").value));
+
+  if(!bet||bet>balance)return bjMessage("❌ Проверь ставку.");
+
+  balance-=bet;
+  save();
+
+  bjBetValue=bet;
+  bjActive=true;
+  bjDeck=[];
+
+  ["♠","♥","♦","♣"].forEach(s=>
+    ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
+    .forEach(r=>bjDeck.push({rank:r,suit:s}))
+  );
+
+  shuffle(bjDeck);
+
+  bjPlayer=[bjDeck.pop(),bjDeck.pop()];
+  bjDealer=[bjDeck.pop(),bjDeck.pop()];
+
+  renderBJ();
+  bjMessage("🃏 Твой ход!");
+
+  document.getElementById("hitBtn").disabled=false;
+  document.getElementById("standBtn").disabled=false;
+}
+
+function bjValue(hand){
+  let total=0,aces=0;
+
+  hand.forEach(c=>{
+    if(c.rank==="A"){
+      total+=11;
+      aces++;
+    }
+    else if(["J","Q","K"].includes(c.rank))total+=10;
+    else total+=Number(c.rank);
+  });
+
+  while(total>21&&aces){
+    total-=10;
+    aces--;
+  }
+
+  return total;
+}
+
+function makeBJCard(c){
+  let red=c.suit==="♥"||c.suit==="♦";
+
+  return `<div class="bj-card ${red?"red-card":""}">
+  <b>${c.rank}${c.suit}</b>
+  <div style="font-size:36px">${c.suit}</div>
+  <b style="text-align:right">${c.rank}</b>
+  </div>`;
+}
+
+function renderBJ(reveal=false){
+  document.getElementById("bjPlayerCards").innerHTML=
+    bjPlayer.map(makeBJCard).join("");
+
+  document.getElementById("dealerCards").innerHTML=
+    bjDealer.map((c,i)=>
+      i===1&&!reveal&&bjActive
+      ?'<div class="bj-card hidden-card">♠</div>'
+      :makeBJCard(c)
+    ).join("");
+
+  document.getElementById("playerScore").textContent=bjValue(bjPlayer);
+  document.getElementById("dealerScore").textContent=
+    reveal?bjValue(bjDealer):"?";
+}
+
+function hit(){
+  if(!bjActive)return;
+
+  bjPlayer.push(bjDeck.pop());
+  renderBJ();
+
+  if(bjValue(bjPlayer)>21){
+    endBJ("💥 ПЕРЕБОР! Ты проиграл.",0);
+  }
+}
+
+function stand(){
+  if(!bjActive)return;
+
+  while(bjValue(bjDealer)<17){
+    bjDealer.push(bjDeck.pop());
+  }
+
+  renderBJ(true);
+
+  let p=bjValue(bjPlayer);
+  let d=bjValue(bjDealer);
+
+  if(d>21||p>d)endBJ("🏆 ТЫ ВЫИГРАЛ!",bjBetValue*2);
+  else if(p===d)endBJ("🤝 НИЧЬЯ!",bjBetValue);
+  else endBJ("😔 Дилер выиграл.",0);
+}
+
+function endBJ(msg,payout){
+  bjActive=false;
+
+  if(payout){
+    balance+=payout;
+    save();
+  }
+
+  bjMessage(msg);
+
+  document.getElementById("hitBtn").disabled=true;
+  document.getElementById("standBtn").disabled=true;
+}
+
+function bjMessage(t){
+  document.getElementById("bjStatus").textContent=t;
+}
+
+/* БОМБОЧКИ */
 let mineActive=false,mineBetValue=0,mineBombs=[],mineOpened=0,mineMultiplier=1,mineSize=3;
 
 function getMineSize(bombs){
@@ -186,6 +630,7 @@ function getMineSize(bombs){
 function buildMineBoard(){
   const grid=document.getElementById("minesGrid");
   const bombs=Number(document.getElementById("mineCount").value);
+
   mineSize=getMineSize(bombs);
   const total=mineSize*mineSize;
 
@@ -232,6 +677,7 @@ function startMines(){
   buildMineBoard();
 
   document.querySelectorAll(".mine-cell").forEach(c=>c.disabled=false);
+
   document.getElementById("mineStart").disabled=true;
   document.getElementById("mineCashout").disabled=false;
   document.getElementById("mineBet").disabled=true;
@@ -248,17 +694,20 @@ function openMineCell(index){
   const cell=cells[index];
 
   if(cell.disabled)return;
+
   cell.disabled=true;
 
   if(mineBombs.includes(index)){
     cell.classList.add("bomb");
     cell.textContent="💥";
+
     mineMessage("💥 БУМ! Ты попал на бомбу!");
 
     document.getElementById("minesRoom").classList.add("explode");
 
     cells.forEach((c,i)=>{
       c.disabled=true;
+
       if(mineBombs.includes(i)&&i!==index){
         setTimeout(()=>{
           c.classList.add("bomb");
@@ -271,6 +720,7 @@ function openMineCell(index){
       document.getElementById("minesRoom").classList.remove("explode");
       finishMines();
     },1200);
+
     return;
   }
 
@@ -297,8 +747,10 @@ function openMineCell(index){
 
 function updateMineInfo(){
   const win=Math.floor(mineBetValue*mineMultiplier);
+
   document.getElementById("safeOpened").textContent=mineOpened;
-  document.getElementById("mineMultiplier").textContent=mineMultiplier.toFixed(2)+"×";
+  document.getElementById("mineMultiplier").textContent=
+    mineMultiplier.toFixed(2)+"×";
   document.getElementById("mineWin").textContent=win;
 }
 
@@ -306,23 +758,29 @@ function cashoutMines(){
   if(!mineActive)return;
 
   const win=Math.floor(mineBetValue*mineMultiplier);
+
   balance+=win;
   save();
 
   mineMessage("🏆 ВЫИГРЫШ! Ты забрал "+win+" 🪙");
+
   document.querySelectorAll(".mine-cell").forEach(c=>c.disabled=true);
+
   finishMines();
 }
 
 function finishMines(){
   mineActive=false;
+
   document.getElementById("mineStart").disabled=false;
   document.getElementById("mineCashout").disabled=true;
   document.getElementById("mineBet").disabled=false;
   document.getElementById("mineCount").disabled=false;
 }
 
-function mineMessage(t){document.getElementById("minesStatus").textContent=t}
+function mineMessage(t){
+  document.getElementById("minesStatus").textContent=t;
+}
 
 buildMineBoard();
 </script>
