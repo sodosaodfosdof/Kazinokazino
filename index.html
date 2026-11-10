@@ -1,80 +1,179 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Игровой клуб</title>
+
 <style>
 * { box-sizing: border-box; }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #121826;
-  color: white;
-  text-align: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #121826;
+    color: white;
+    text-align: center;
 }
 
 header {
-  padding: 18px;
-  background: #202a3b;
+    background: #202a3b;
+    padding: 18px;
 }
 
 h1 { margin: 0 0 10px; }
 
 #balance {
-  font-size: 22px;
-  font-weight: bold;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 .tabs {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    flex-wrap: wrap;
 }
 
 button {
-  border: 0;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  background: #3b82f6;
-  color: white;
+    border: 0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #3b82f6;
+    color: white;
+    cursor: pointer;
 }
 
-.secondary { background: #475569; }
+button:disabled {
+    opacity: .5;
+}
 
 .game {
-  display: none;
-  max-width: 700px;
-  margin: 18px auto;
-  padding: 20px;
+    display: none;
+    max-width: 800px;
+    margin: auto;
+    padding: 15px;
 }
 
 .game.active { display: block; }
 
 .cardbox {
-  background: #202a3b;
-  border-radius: 18px;
-  padding: 20px;
+    background: #202a3b;
+    border-radius: 18px;
+    padding: 18px;
 }
 
-.slots {
-  font-size: 50px;
-  min-height: 80px;
-  margin: 20px;
+/* ===== АВТОМАТ ===== */
+
+.slot-machine {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px auto;
+}
+
+.reel {
+    width: 85px;
+    height: 95px;
+    background: #111827;
+    border: 4px solid #64748b;
+    border-radius: 12px;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinning {
+    animation: shake .12s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translateY(-3px); }
+    50% { transform: translateY(3px); }
+    100% { transform: translateY(-3px); }
 }
 
 input {
-  width: 100px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 0;
-  text-align: center;
+    width: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 0;
+    font-size: 16px;
+}
+
+/* ===== ДУРАК ===== */
+
+.durak-info {
+    margin: 10px;
+    font-size: 18px;
+}
+
+.table {
+    min-height: 140px;
+    background: #166534;
+    border: 3px solid #4ade80;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+
+.card {
+    width: 52px;
+    height: 75px;
+    background: white;
+    color: #111;
+    border-radius: 7px;
+    padding: 8px 3px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+.card.red {
+    color: #dc2626;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #3b82f6;
+}
+
+.card.selected {
+    outline: 4px solid #facc15;
+    transform: translateY(-10px);
+}
+
+.card.back {
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#botCards .card {
+    cursor: default;
+}
+
+#botCards .card:hover {
+    transform: none;
+}
+
+.small {
+    color: #cbd5e1;
+    font-size: 14px;
 }
 </style>
 </head>
@@ -82,256 +181,539 @@ input {
 <body>
 
 <header>
-  <h1>🎮 Игровой клуб</h1>
-  <div id="balance">🪙 Монеты: 1000</div>
-  <small>Только игровая валюта</small>
+    <h1>🎮 Игровой клуб</h1>
+    <div id="balance">🪙 Монеты: 1000</div>
+    <div class="small">Только игровая валюта</div>
 </header>
 
 <div class="tabs">
-  <button onclick="showGame('slots')">🎰 Автоматы</button>
-  <button onclick="showGame('poker')">♠️ Покер</button>
-  <button onclick="showGame('durak')">🃏 Дурак</button>
+    <button onclick="showGame('slots')">🎰 Автомат</button>
+    <button onclick="showGame('durak')">🃏 Дурак</button>
 </div>
 
-<!-- АВТОМАТЫ -->
+<!-- ================= АВТОМАТ ================= -->
+
 <section id="slots" class="game active">
-  <div class="cardbox">
-    <h2>🎰 Игровые автоматы</h2>
+    <div class="cardbox">
+        <h2>🎰 Игровой автомат</h2>
 
-    <button class="secondary" onclick="setMachine(0)">🍒 Классика</button>
-    <button class="secondary" onclick="setMachine(1)">💎 Джекпот</button>
+        <div class="slot-machine">
+            <div class="reel" id="reel0">🍒</div>
+            <div class="reel" id="reel1">🍋</div>
+            <div class="reel" id="reel2">🍇</div>
+        </div>
 
-    <h3 id="machineName">🍒 Классика</h3>
+        <p>
+            Ставка:
+            <input id="slotBet" type="number" value="20" min="1">
+        </p>
 
-    <div class="slots" id="reels">🍒 🍋 🍇</div>
+        <button id="spinButton" onclick="spin()">КРУТИТЬ 🎰</button>
 
-    <p>
-      Ставка:
-      <input id="slotBet" type="number" value="20" min="1">
-    </p>
-
-    <button onclick="spin()">КРУТИТЬ 🎰</button>
-    <p id="slotMsg"></p>
-  </div>
+        <p id="slotMessage"></p>
+    </div>
 </section>
 
-<!-- ПОКЕР -->
-<section id="poker" class="game">
-  <div class="cardbox">
-    <h2>♠️ Упрощённый покер</h2>
+<!-- ================= ДУРАК ================= -->
 
-    <p>
-      Ставка:
-      <input id="pokerBet" type="number" value="50" min="1">
-    </p>
-
-    <h3>Ты: <span id="playerCards">?</span></h3>
-    <h3>Бот: <span id="botCards">?</span></h3>
-
-    <button onclick="playPoker()">Раздать карты</button>
-    <p id="pokerMsg"></p>
-  </div>
-</section>
-
-<!-- ДУРАК -->
 <section id="durak" class="game">
-  <div class="cardbox">
-    <h2>🃏 Дурак — мини-версия</h2>
 
-    <p>
-      Ставка:
-      <input id="durakBet" type="number" value="30" min="1">
-    </p>
+<div class="cardbox">
 
-    <h3>Ты: <span id="myDurak">?</span></h3>
-    <h3>Бот: <span id="botDurak">?</span></h3>
+    <h2>🃏 Дурак против компьютера</h2>
 
-    <button onclick="playDurak()">Играть раунд</button>
-    <p id="durakMsg"></p>
-  </div>
+    <div class="durak-info">
+        🃏 В колоде: <span id="deckCount">0</span>
+        <br>
+        👑 Козырь: <span id="trump">?</span>
+    </div>
+
+    <p id="durakMessage">Нажми «Новая игра»</p>
+
+    <button onclick="startDurak()">🔄 Новая игра</button>
+    <button onclick="takeCards()">Взять карты</button>
+
+    <h3>🤖 Карты бота: <span id="botCount">0</span></h3>
+
+    <div class="cards" id="botCards"></div>
+
+    <h3>🟢 Стол</h3>
+
+    <div class="table">
+        <div id="attackCard"></div>
+        <div id="defendCard"></div>
+    </div>
+
+    <h3>👤 Твои карты — нажми на карту:</h3>
+
+    <div class="cards" id="playerCards"></div>
+
+</div>
+
 </section>
 
 <script>
-let balance = Number(localStorage.getItem("clubBalance")) || 1000;
-let machine = 0;
 
-const machines = [
-  {
-    name: "🍒 Классика",
-    icons: ["🍒", "🍋", "🍇", "🔔", "⭐"],
-    mult: 8
-  },
-  {
-    name: "💎 Джекпот",
-    icons: ["💎", "7️⃣", "🍀", "👑", "💰"],
-    mult: 15
-  }
-];
+/* ================= ОБЩЕЕ ================= */
 
-function save() {
-  localStorage.setItem("clubBalance", balance);
-  document.getElementById("balance").textContent =
-    "🪙 Монеты: " + balance;
+let balance = Number(localStorage.getItem("gameBalance")) || 1000;
+
+function saveBalance() {
+    localStorage.setItem("gameBalance", balance);
+    document.getElementById("balance").textContent =
+        "🪙 Монеты: " + balance;
 }
 
 function showGame(id) {
-  document.querySelectorAll(".game").forEach(function(game) {
-    game.classList.remove("active");
-  });
+    document.querySelectorAll(".game").forEach(game => {
+        game.classList.remove("active");
+    });
 
-  document.getElementById(id).classList.add("active");
+    document.getElementById(id).classList.add("active");
 }
 
-function getBet(id) {
-  let value = Math.floor(Number(document.getElementById(id).value));
+saveBalance();
 
-  if (value <= 0 || value > balance) {
-    return 0;
-  }
 
-  return value;
-}
+/* ================= АВТОМАТ ================= */
 
-function setMachine(number) {
-  machine = number;
-  document.getElementById("machineName").textContent =
-    machines[number].name;
-}
+const symbols = ["🍒", "🍋", "🍇", "🔔", "⭐", "💎"];
 
 function spin() {
-  let bet = getBet("slotBet");
 
-  if (!bet) {
-    document.getElementById("slotMsg").textContent =
-      "Недостаточно монет!";
-    return;
-  }
+    let bet = Math.floor(Number(document.getElementById("slotBet").value));
 
-  balance -= bet;
+    if (!bet || bet > balance) {
+        document.getElementById("slotMessage").textContent =
+            "❌ Недостаточно монет!";
+        return;
+    }
 
-  let icons = machines[machine].icons;
+    balance -= bet;
+    saveBalance();
 
-  let result = [
-    icons[Math.floor(Math.random() * icons.length)],
-    icons[Math.floor(Math.random() * icons.length)],
-    icons[Math.floor(Math.random() * icons.length)]
-  ];
+    let button = document.getElementById("spinButton");
+    button.disabled = true;
 
-  document.getElementById("reels").textContent =
-    result.join(" ");
+    document.getElementById("slotMessage").textContent =
+        "🎰 Барабаны крутятся...";
 
-  let win = 0;
+    let results = [];
 
-  if (result[0] === result[1] && result[1] === result[2]) {
-    win = bet * machines[machine].mult;
-  } else if (
-    result[0] === result[1] ||
-    result[1] === result[2] ||
-    result[0] === result[2]
-  ) {
-    win = bet * 2;
-  }
+    for (let i = 0; i < 3; i++) {
+        results[i] = symbols[Math.floor(Math.random() * symbols.length)];
+    }
 
-  if (win > 0) {
-    balance += win;
-    document.getElementById("slotMsg").textContent =
-      "🎉 Выигрыш: " + win + " монет!";
-  } else {
-    document.getElementById("slotMsg").textContent =
-      "😔 Не повезло!";
-  }
+    let timers = [];
 
-  save();
+    for (let i = 0; i < 3; i++) {
+
+        let reel = document.getElementById("reel" + i);
+
+        reel.classList.add("spinning");
+
+        timers[i] = setInterval(() => {
+            reel.textContent =
+                symbols[Math.floor(Math.random() * symbols.length)];
+        }, 80);
+
+        setTimeout(() => {
+
+            clearInterval(timers[i]);
+
+            reel.textContent = results[i];
+            reel.classList.remove("spinning");
+
+            if (i === 2) {
+                checkWin(results, bet);
+                button.disabled = false;
+            }
+
+        }, 1000 + i * 700);
+    }
 }
 
-function randomCard() {
-  return Math.floor(Math.random() * 13) + 2;
+function checkWin(results, bet) {
+
+    let win = 0;
+
+    if (
+        results[0] === results[1] &&
+        results[1] === results[2]
+    ) {
+        win = bet * 10;
+    }
+    else if (
+        results[0] === results[1] ||
+        results[1] === results[2] ||
+        results[0] === results[2]
+    ) {
+        win = bet * 2;
+    }
+
+    if (win > 0) {
+
+        balance += win;
+
+        document.getElementById("slotMessage").textContent =
+            "🎉 ВЫИГРЫШ! +" + win + " монет";
+
+    } else {
+
+        document.getElementById("slotMessage").textContent =
+            "😔 Не повезло. Попробуй ещё!";
+    }
+
+    saveBalance();
 }
 
-function cardName(card) {
-  const names = {
-    11: "В",
-    12: "Д",
-    13: "К",
-    14: "Т"
-  };
 
-  return names[card] || card;
+/* ================= ДУРАК ================= */
+
+let deck = [];
+let playerHand = [];
+let botHand = [];
+let trumpSuit = "";
+let attack = null;
+let gameStarted = false;
+
+const suits = ["♥", "♦", "♣", "♠"];
+const ranks = ["6", "7", "8", "9", "10", "В", "Д", "К", "Т"];
+
+function createDeck() {
+
+    let newDeck = [];
+
+    suits.forEach(suit => {
+
+        ranks.forEach(rank => {
+
+            newDeck.push({
+                suit: suit,
+                rank: rank,
+                value: ranks.indexOf(rank)
+            });
+
+        });
+
+    });
+
+    return shuffle(newDeck);
 }
 
-function playPoker() {
-  let bet = getBet("pokerBet");
+function shuffle(array) {
 
-  if (!bet) {
-    document.getElementById("pokerMsg").textContent =
-      "Недостаточно монет!";
-    return;
-  }
+    for (let i = array.length - 1; i > 0; i--) {
 
-  balance -= bet;
+        let j = Math.floor(Math.random() * (i + 1));
 
-  let player = randomCard();
-  let bot = randomCard();
+        [array[i], array[j]] =
+            [array[j], array[i]];
+    }
 
-  document.getElementById("playerCards").textContent =
-    cardName(player) + " ♠";
-
-  document.getElementById("botCards").textContent =
-    cardName(bot) + " ♠";
-
-  if (player > bot) {
-    balance += bet * 2;
-    document.getElementById("pokerMsg").textContent =
-      "🏆 Ты выиграл!";
-  } else if (player === bot) {
-    balance += bet;
-    document.getElementById("pokerMsg").textContent =
-      "🤝 Ничья!";
-  } else {
-    document.getElementById("pokerMsg").textContent =
-      "🤖 Бот выиграл!";
-  }
-
-  save();
+    return array;
 }
 
-function playDurak() {
-  let bet = getBet("durakBet");
+function startDurak() {
 
-  if (!bet) {
-    document.getElementById("durakMsg").textContent =
-      "Недостаточно монет!";
-    return;
-  }
+    deck = createDeck();
 
-  balance -= bet;
+    playerHand = [];
+    botHand = [];
 
-  let player = randomCard();
-  let bot = randomCard();
+    trumpSuit = deck[deck.length - 1].suit;
 
-  document.getElementById("myDurak").textContent =
-    cardName(player) + " ♥";
+    attack = null;
+    gameStarted = true;
 
-  document.getElementById("botDurak").textContent =
-    cardName(bot) + " ♥";
+    for (let i = 0; i < 6; i++) {
 
-  if (player > bot) {
-    balance += bet * 2;
-    document.getElementById("durakMsg").textContent =
-      "🎉 Ты выиграл раунд!";
-  } else if (player === bot) {
-    balance += bet;
-    document.getElementById("durakMsg").textContent =
-      "🤝 Ничья!";
-  } else {
-    document.getElementById("durakMsg").textContent =
-      "😅 Бот выиграл!";
-  }
+        playerHand.push(deck.pop());
+        botHand.push(deck.pop());
+    }
 
-  save();
+    document.getElementById("durakMessage").textContent =
+        "Твой ход! Нажми на карту, чтобы атаковать.";
+
+    renderDurak();
 }
 
-save();
+function cardText(card) {
+    return card.rank + card.suit;
+}
+
+function cardClass(card) {
+    return (
+        card.suit === "♥" || card.suit === "♦"
+    ) ? "card red" : "card";
+}
+
+function renderDurak() {
+
+    document.getElementById("deckCount").textContent =
+        deck.length;
+
+    document.getElementById("trump").textContent =
+        trumpSuit;
+
+    document.getElementById("botCount").textContent =
+        botHand.length;
+
+    renderPlayerCards();
+    renderBotCards();
+
+    document.getElementById("attackCard").innerHTML =
+        attack
+        ? '<div class="' + cardClass(attack) + '">' +
+          cardText(attack) + '</div>'
+        : "";
+
+    checkGameEnd();
+}
+
+function renderPlayerCards() {
+
+    let container =
+        document.getElementById("playerCards");
+
+    container.innerHTML = "";
+
+    playerHand.forEach((card, index) => {
+
+        let div = document.createElement("div");
+
+        div.className = cardClass(card);
+
+        div.textContent = cardText(card);
+
+        div.onclick = function() {
+            playCard(index);
+        };
+
+        container.appendChild(div);
+    });
+}
+
+function renderBotCards() {
+
+    let container =
+        document.getElementById("botCards");
+
+    container.innerHTML = "";
+
+    for (let i = 0; i < botHand.length; i++) {
+
+        let div = document.createElement("div");
+
+        div.className = "card back";
+
+        div.textContent = "🂠";
+
+        container.appendChild(div);
+    }
+}
+
+
+/* ================= ХОД ИГРОКА ================= */
+
+function playCard(index) {
+
+    if (!gameStarted) return;
+
+    if (attack !== null) {
+        document.getElementById("durakMessage").textContent =
+            "Сейчас бот защищается!";
+        return;
+    }
+
+    attack = playerHand[index];
+
+    playerHand.splice(index, 1);
+
+    document.getElementById("durakMessage").textContent =
+        "Ты ходишь: " + cardText(attack);
+
+    renderDurak();
+
+    setTimeout(botDefend, 700);
+}
+
+
+/* ================= ЗАЩИТА БОТА ================= */
+
+function canBeat(defend, attackCard) {
+
+    if (
+        defend.suit === attackCard.suit &&
+        defend.value > attackCard.value
+    ) {
+        return true;
+    }
+
+    if (
+        defend.suit === trumpSuit &&
+        attackCard.suit !== trumpSuit
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+function botDefend() {
+
+    let possible = botHand.filter(card =>
+        canBeat(card, attack)
+    );
+
+    if (possible.length === 0) {
+
+        botHand.push(attack);
+
+        attack = null;
+
+        document.getElementById("durakMessage").textContent =
+            "🤖 Бот не смог отбиться и забрал карту!";
+
+        refillHands();
+
+        renderDurak();
+
+        return;
+    }
+
+    possible.sort((a, b) => a.value - b.value);
+
+    let defense = possible[0];
+
+    let index = botHand.indexOf(defense);
+
+    botHand.splice(index, 1);
+
+    document.getElementById("defendCard").innerHTML =
+        '<div class="' + cardClass(defense) + '">' +
+        cardText(defense) + '</div>';
+
+    document.getElementById("durakMessage").textContent =
+        "🤖 Бот отбился картой " + cardText(defense);
+
+    setTimeout(() => {
+
+        attack = null;
+
+        document.getElementById("defendCard").innerHTML = "";
+
+        refillHands();
+
+        document.getElementById("durakMessage").textContent =
+            "Твой следующий ход!";
+
+        renderDurak();
+
+    }, 1200);
+}
+
+
+/* ================= ВЗЯТЬ КАРТЫ ================= */
+
+function takeCards() {
+
+    if (!gameStarted || attack === null) {
+        return;
+    }
+
+    playerHand.push(attack);
+
+    attack = null;
+
+    document.getElementById("defendCard").innerHTML = "";
+
+    document.getElementById("durakMessage").textContent =
+        "Ты взял карту.";
+
+    botAttack();
+
+    renderDurak();
+}
+
+
+/* ================= ХОД БОТА ================= */
+
+function botAttack() {
+
+    if (botHand.length === 0) return;
+
+    botHand.sort((a, b) => a.value - b.value);
+
+    let card = botHand.shift();
+
+    playerHand.push(card);
+
+    document.getElementById("durakMessage").textContent =
+        "🤖 Бот ходит. Ты получил карту: " +
+        cardText(card);
+
+    refillHands();
+}
+
+
+/* ================= ДОБОР КАРТ ================= */
+
+function refillHands() {
+
+    while (
+        playerHand.length < 6 &&
+        deck.length > 0
+    ) {
+        playerHand.push(deck.pop());
+    }
+
+    while (
+        botHand.length < 6 &&
+        deck.length > 0
+    ) {
+        botHand.push(deck.pop());
+    }
+}
+
+
+/* ================= КОНЕЦ ИГРЫ ================= */
+
+function checkGameEnd() {
+
+    if (!gameStarted) return;
+
+    if (deck.length === 0) {
+
+        if (
+            playerHand.length === 0 &&
+            botHand.length === 0
+        ) {
+
+            document.getElementById("durakMessage").textContent =
+                "🤝 Ничья!";
+
+            gameStarted = false;
+
+        }
+        else if (playerHand.length === 0) {
+
+            document.getElementById("durakMessage").textContent =
+                "🏆 ТЫ ВЫИГРАЛ!";
+
+            gameStarted = false;
+
+        }
+        else if (botHand.length === 0) {
+
+            document.getElementById("durakMessage").textContent =
+                "🤖 Бот выиграл. Ты дурак!";
+
+            gameStarted = false;
+        }
+    }
+}
+
 </script>
 
 </body>
