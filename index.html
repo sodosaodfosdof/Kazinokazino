@@ -8,10 +8,8 @@
 <style>
 :root{
   --bg:#080b14;
-  --panel:#121a2a;
   --gold:#ffd54a;
-  --blue:#3579ff;
-  --green:#087044;
+  --blue:#397fff;
 }
 
 *{box-sizing:border-box}
@@ -19,20 +17,19 @@
 body{
   margin:0;
   min-height:100vh;
+  color:#fff;
   font-family:Arial,sans-serif;
-  color:white;
   text-align:center;
-  background:
-    radial-gradient(circle at 50% -10%,#273b70 0,#101626 42%,#05070c 100%);
+  background:radial-gradient(circle at 50% -10%,#273b70,#101626 42%,#05070c);
 }
 
 header{
-  padding:18px 10px;
-  background:rgba(5,8,15,.94);
-  border-bottom:1px solid #334155;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:20;
+  padding:18px 10px;
+  background:rgba(5,8,15,.95);
+  border-bottom:1px solid #334155;
 }
 
 .logo{
@@ -42,47 +39,41 @@ header{
   text-shadow:0 0 20px #c68d00;
 }
 
-.stats{
-  margin-top:12px;
+.stats,.tabs,.settings,.controls,.bj-controls{
   display:flex;
   justify-content:center;
+  align-items:center;
   gap:10px;
   flex-wrap:wrap;
 }
 
-.stat{
+.stats{margin-top:12px}
+.tabs{padding:15px}
+
+.stat,.pill{
+  padding:9px 15px;
+  border-radius:14px;
   background:#172033;
   border:1px solid #34445f;
-  border-radius:14px;
-  padding:9px 15px;
   font-weight:bold;
 }
 
-.tabs{
-  padding:15px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-button,select,input{
-  font:inherit;
-}
+button,select,input{font:inherit}
 
 button{
+  padding:12px 18px;
   border:0;
   border-radius:12px;
-  padding:12px 18px;
-  color:white;
+  color:#fff;
   font-weight:bold;
   background:linear-gradient(135deg,#397fff,#1748bb);
   cursor:pointer;
   transition:.15s;
 }
 
+button:hover{filter:brightness(1.15)}
 button:active{transform:scale(.96)}
-button:disabled{opacity:.5}
+button:disabled{opacity:.45;cursor:not-allowed}
 
 .game{
   display:none;
@@ -93,15 +84,14 @@ button:disabled{opacity:.5}
 
 .game.active{display:block}
 
-/* ===================== АВТОМАТ ===================== */
+/* =============== АВТОМАТЫ =============== */
 
 .machine{
   max-width:850px;
   margin:auto;
   padding:20px;
   border-radius:35px;
-  background:
-    linear-gradient(145deg,#4b5e7c,#1a2234 50%,#090e18);
+  background:linear-gradient(145deg,#4b5e7c,#1a2234 50%,#090e18);
   border:5px solid #8392a9;
   box-shadow:inset 0 0 30px #ffffff10,0 25px 70px #000;
 }
@@ -112,14 +102,6 @@ button:disabled{opacity:.5}
   color:var(--gold);
   text-shadow:0 0 18px #bd8200;
   margin-bottom:15px;
-}
-
-.settings{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:16px;
 }
 
 .settings label{
@@ -143,10 +125,7 @@ select,input{
   box-shadow:inset 0 0 25px #000;
 }
 
-.reels{
-  display:flex;
-  gap:7px;
-}
+.reels{display:flex;gap:7px}
 
 .reel{
   flex:1;
@@ -160,15 +139,15 @@ select,input{
 
 .strip{
   position:absolute;
-  width:100%;
   top:0;
+  width:100%;
 }
 
 .symbol{
   height:125px;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   font-size:clamp(42px,9vw,70px);
 }
 
@@ -183,16 +162,11 @@ select,input{
   box-shadow:0 0 10px #ffd54a;
 }
 
-.slot-controls{
-  margin-top:17px;
-}
-
 .spin{
   margin-top:12px;
   padding:17px 45px;
   font-size:21px;
   background:linear-gradient(135deg,#ffc52e,#b75b00);
-  box-shadow:0 0 20px #ffae0040;
 }
 
 .message{
@@ -202,28 +176,14 @@ select,input{
   font-weight:bold;
 }
 
-.machine.win{
-  animation:flash .35s infinite alternate;
-}
+.machine.win{animation:flash .35s infinite alternate}
 
 @keyframes flash{
   from{box-shadow:0 25px 70px #000,0 0 10px #ffd54a}
   to{box-shadow:0 25px 70px #000,0 0 50px #ffd54a}
 }
 
-.particle{
-  position:fixed;
-  z-index:30;
-  pointer-events:none;
-  animation:fall 2.5s linear forwards;
-}
-
-@keyframes fall{
-  from{transform:translateY(-30px) rotate(0deg);opacity:1}
-  to{transform:translateY(110vh) rotate(720deg);opacity:0}
-}
-
-/* ===================== ДУРАК ===================== */
+/* =============== ДУРАК =============== */
 
 .durak{
   max-width:950px;
@@ -240,12 +200,6 @@ select,input{
   justify-content:center;
   gap:8px;
   flex-wrap:wrap;
-}
-
-.pill{
-  padding:8px 12px;
-  border-radius:12px;
-  background:#0005;
 }
 
 .status{
@@ -274,7 +228,7 @@ select,input{
   height:80px;
   border-radius:9px;
   border:2px solid #ddd;
-  background:white;
+  background:#fff;
   color:#111;
   display:flex;
   justify-content:center;
@@ -286,9 +240,7 @@ select,input{
 
 .red{color:#d51f35}
 
-.playable{
-  cursor:pointer;
-}
+.playable{cursor:pointer}
 
 .playable:hover{
   transform:translateY(-12px);
@@ -297,13 +249,8 @@ select,input{
 }
 
 .back{
-  background:
-    repeating-linear-gradient(
-      45deg,
-      #1e4fd1 0 7px,
-      #102a82 7px 14px
-    );
-  color:white;
+  background:repeating-linear-gradient(45deg,#1e4fd1 0 7px,#102a82 7px 14px);
+  color:#fff;
 }
 
 .table{
@@ -325,35 +272,192 @@ select,input{
   height:105px;
 }
 
-.attack{
-  position:absolute;
-  left:0;
-  bottom:0;
-}
-
-.defense{
-  position:absolute;
-  right:0;
-  top:0;
-  transform:rotate(12deg);
-  border-color:#ffd54a;
-}
-
-.controls{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:12px;
-}
+.attack{position:absolute;left:0;bottom:0}
+.defense{position:absolute;right:0;top:0;transform:rotate(12deg);border-color:#ffd54a}
 
 .take{background:linear-gradient(135deg,#d64a39,#851b16)}
 .beat{background:linear-gradient(135deg,#1cac62,#076c38)}
+
+/* =============== BLACKJACK =============== */
+
+.blackjack-room{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+  border-radius:32px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at center,#157447 0%,#073b27 60%,#031d14 100%);
+  border:6px solid #c99a3c;
+  box-shadow:0 0 0 5px #39220b,0 25px 70px #000;
+}
+
+.blackjack-room:before{
+  content:"♠ ♥ ♦ ♣";
+  position:absolute;
+  top:-20px;
+  left:0;
+  width:100%;
+  font-size:120px;
+  opacity:.04;
+  letter-spacing:30px;
+  white-space:nowrap;
+}
+
+.bj-title{
+  position:relative;
+  font-size:clamp(30px,8vw,60px);
+  font-weight:900;
+  color:#ffd54a;
+  text-shadow:0 4px 15px #000;
+}
+
+.bj-status{
+  position:relative;
+  min-height:45px;
+  margin:15px auto;
+  padding:11px;
+  max-width:600px;
+  border-radius:14px;
+  background:#0005;
+  font-weight:bold;
+}
+
+.bj-zone{
+  position:relative;
+  padding:10px;
+  margin:10px 0;
+}
+
+.bj-label{
+  font-size:18px;
+  font-weight:bold;
+  color:#ffe69a;
+  margin-bottom:8px;
+}
+
+.bj-cards{
+  min-height:125px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.bj-card{
+  width:82px;
+  height:118px;
+  padding:8px;
+  border-radius:12px;
+  background:linear-gradient(145deg,#fff,#e7e7e7);
+  color:#111;
+  border:2px solid #fff;
+  box-shadow:0 8px 15px #0007;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  text-align:left;
+  font-size:22px;
+  font-weight:bold;
+  animation:dealCard .45s cubic-bezier(.2,.9,.2,1);
+}
+
+.bj-card .big{
+  align-self:center;
+  font-size:38px;
+}
+
+.bj-card.red-card{color:#d41e32}
+
+.bj-card.hidden-card{
+  background:repeating-linear-gradient(45deg,#2449ad 0 8px,#10276d 8px 16px);
+  color:white;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+}
+
+@keyframes dealCard{
+  from{
+    opacity:0;
+    transform:translate(150px,-80px) rotate(25deg) scale(.7);
+  }
+  to{
+    opacity:1;
+    transform:translate(0,0) rotate(0) scale(1);
+  }
+}
+
+.bj-score{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:20px;
+  background:#0006;
+  color:#fff;
+  font-weight:bold;
+}
+
+.bj-bet{
+  position:relative;
+  margin:14px 0;
+}
+
+.bj-controls button{
+  min-width:125px;
+  font-size:17px;
+}
+
+.hit{
+  background:linear-gradient(135deg,#258dff,#1448c7);
+}
+
+.stand{
+  background:linear-gradient(135deg,#1cac62,#08703b);
+}
+
+.new-round{
+  background:linear-gradient(135deg,#f0a72a,#b85b00);
+}
+
+.blackjack-win{
+  animation:bjGlow .5s infinite alternate;
+}
+
+@keyframes bjGlow{
+  from{box-shadow:0 0 0 5px #39220b,0 25px 70px #000}
+  to{box-shadow:0 0 0 5px #39220b,0 0 45px #ffd54a,0 25px 70px #000}
+}
+
+.win-popup{
+  position:fixed;
+  top:35%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:100;
+  padding:20px 35px;
+  border-radius:20px;
+  background:linear-gradient(145deg,#ffd54a,#b87500);
+  color:#1b1000;
+  font-size:clamp(25px,7vw,50px);
+  font-weight:900;
+  box-shadow:0 15px 40px #000;
+  animation:popup 2s forwards;
+}
+
+@keyframes popup{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+  20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
+  100%{opacity:0;transform:translate(-50%,-80%) scale(1)}
+}
 
 @media(max-width:560px){
   .machine{padding:12px}
   .reel,.symbol{height:92px}
   .card{width:48px;height:68px;font-size:16px}
+  .bj-card{width:64px;height:95px;font-size:17px}
+  .bj-card .big{font-size:30px}
 }
 </style>
 </head>
@@ -364,25 +468,23 @@ select,input{
   <div class="logo">🎮 GAME CLUB</div>
   <div class="stats">
     <div class="stat" id="balance">🪙 Монеты: 1000</div>
-    <div class="stat">🎯 Игровые монеты</div>
+    <div class="stat">🎯 Только игровые монеты</div>
   </div>
 </header>
 
 <div class="tabs">
   <button onclick="showGame('slots')">🎰 АВТОМАТЫ</button>
   <button onclick="showGame('durak')">🃏 ДУРАК</button>
+  <button onclick="showGame('blackjack')">🂡 BLACKJACK</button>
 </div>
 
+<!-- АВТОМАТЫ -->
 <section class="game active" id="slots">
   <div class="machine" id="machine">
-
-    <div class="machine-title" id="machineTitle">
-      🎰 CLASSIC SLOTS
-    </div>
+    <div class="machine-title" id="machineTitle">🎰 CLASSIC SLOTS</div>
 
     <div class="settings">
-      <label>
-        Автомат:
+      <label>Автомат:
         <select id="machineType" onchange="changeMachine()">
           <option value="classic">🍒 Классический</option>
           <option value="fruit">🍓 Фруктовый</option>
@@ -390,41 +492,29 @@ select,input{
         </select>
       </label>
 
-      <label>
-        Барабаны:
+      <label>Барабаны:
         <select id="reelCount" onchange="changeMachine()">
-          <option value="3">3 барабана</option>
-          <option value="5" selected>5 барабанов</option>
+          <option value="3">3</option>
+          <option value="5" selected>5</option>
         </select>
       </label>
     </div>
 
-    <div class="reel-frame">
-      <div class="reels" id="reels"></div>
-    </div>
+    <div class="reel-frame"><div class="reels" id="reels"></div></div>
 
     <div class="slot-controls">
-      <label>
-        Ставка:
+      <label>Ставка:
         <input id="slotBet" type="number" value="20" min="1">
-      </label>
-      <br>
-
-      <button class="spin" id="spinBtn" onclick="spin()">
-        🎰 КРУТИТЬ
-      </button>
-
-      <div class="message" id="slotMessage">
-        Выбери автомат и запускай барабаны!
-      </div>
+      </label><br>
+      <button class="spin" id="spinBtn" onclick="spin()">🎰 КРУТИТЬ</button>
+      <div class="message" id="slotMessage">Выбери автомат и запускай барабаны!</div>
     </div>
-
   </div>
 </section>
 
+<!-- ДУРАК -->
 <section class="game" id="durak">
   <div class="durak">
-
     <h2>🃏 ДУРАК</h2>
 
     <div class="info">
@@ -435,98 +525,83 @@ select,input{
 
     <h3>🤖 БОТ</h3>
     <div class="cards" id="botCards"></div>
-
-    <div class="status" id="durakStatus">
-      Нажми «Новая игра».
-    </div>
-
+    <div class="status" id="durakStatus">Нажми «Новая игра».</div>
     <div class="table" id="table"></div>
 
     <div class="controls">
       <button onclick="newGame()">🔄 Новая игра</button>
-      <button class="take" id="takeBtn" onclick="takeCards()" disabled>
-        📥 Взять
-      </button>
-      <button class="beat" id="beatBtn" onclick="finishRound()" disabled>
-        ✅ Бито
-      </button>
+      <button class="take" id="takeBtn" onclick="takeCards()" disabled>📥 Взять</button>
+      <button class="beat" id="beatBtn" onclick="finishRound()" disabled>✅ Бито</button>
     </div>
 
     <h3>👤 ТВОИ КАРТЫ</h3>
     <div class="cards" id="playerCards"></div>
+  </div>
+</section>
+
+<!-- BLACKJACK -->
+<section class="game" id="blackjack">
+  <div class="blackjack-room" id="blackjackRoom">
+
+    <div class="bj-title">♠ BLACKJACK ♠</div>
+
+    <div class="bj-status" id="bjStatus">
+      Выбери ставку и начни игру!
+    </div>
+
+    <div class="bj-zone">
+      <div class="bj-label">🎩 ДИЛЕР — <span class="bj-score" id="dealerScore">?</span></div>
+      <div class="bj-cards" id="dealerCards"></div>
+    </div>
+
+    <div class="bj-zone">
+      <div class="bj-label">🧑 ТЫ — <span class="bj-score" id="playerScore">0</span></div>
+      <div class="bj-cards" id="bjPlayerCards"></div>
+    </div>
+
+    <div class="bj-bet">
+      Ставка:
+      <input type="number" id="bjBet" value="25" min="1">
+    </div>
+
+    <div class="bj-controls">
+      <button class="new-round" id="bjNew" onclick="startBlackjack()">🃏 НОВАЯ ИГРА</button>
+      <button class="hit" id="hitBtn" onclick="hit()" disabled>➕ ВЗЯТЬ</button>
+      <button class="stand" id="standBtn" onclick="stand()" disabled>✋ ХВАТИТ</button>
+    </div>
 
   </div>
 </section>
 
 <script>
-/* ===================== ОБЩЕЕ ===================== */
+/* ================= ОБЩЕЕ ================= */
 
 let balance = Number(localStorage.getItem("gameCoins")) || 1000;
 
 function save(){
   localStorage.setItem("gameCoins",balance);
-  document.getElementById("balance").textContent =
-    "🪙 Монеты: " + balance;
+  document.getElementById("balance").textContent="🪙 Монеты: "+balance;
 }
 
 function showGame(id){
-  document.querySelectorAll(".game").forEach(game=>{
-    game.classList.remove("active");
-  });
+  document.querySelectorAll(".game").forEach(g=>g.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
 save();
 
-/* ===================== АВТОМАТЫ ===================== */
+/* ================= АВТОМАТЫ ================= */
 
-const machines = {
-  classic:{
-    name:"🎰 CLASSIC SLOTS",
-    icons:["🍒","🍋","🍇","🔔","⭐","7️⃣"]
-  },
-  fruit:{
-    name:"🍓 FRUIT PARTY",
-    icons:["🍓","🍒","🍉","🍇","🍊","🍌"]
-  },
-  diamond:{
-    name:"💎 DIAMOND SLOTS",
-    icons:["💎","🔷","⭐","👑","💰","7️⃣"]
-  }
+const machines={
+  classic:{name:"🎰 CLASSIC SLOTS",icons:["🍒","🍋","🍇","🔔","⭐","7️⃣"]},
+  fruit:{name:"🍓 FRUIT PARTY",icons:["🍓","🍒","🍉","🍇","🍊","🍌"]},
+  diamond:{name:"💎 DIAMOND SLOTS",icons:["💎","🔷","⭐","👑","💰","7️⃣"]}
 };
 
 let spinning=false;
 
 function getMachine(){
-  return machines[
-    document.getElementById("machineType").value
-  ];
-}
-
-function changeMachine(){
-  if(spinning)return;
-
-  const count=Number(
-    document.getElementById("reelCount").value
-  );
-
-  document.getElementById("machineTitle").textContent =
-    getMachine().name;
-
-  const reels=document.getElementById("reels");
-  reels.innerHTML="";
-
-  for(let i=0;i<count;i++){
-    const reel=document.createElement("div");
-    reel.className="reel";
-    reel.innerHTML='<div class="strip" id="strip'+i+'"></div>';
-    reels.appendChild(reel);
-
-    document.getElementById("strip"+i).innerHTML =
-      '<div class="symbol">'+randomIcon()+'</div>';
-  }
-
-  slotText("🎰 Выбрано барабанов: "+count);
+  return machines[document.getElementById("machineType").value];
 }
 
 function randomIcon(){
@@ -534,199 +609,119 @@ function randomIcon(){
   return icons[Math.floor(Math.random()*icons.length)];
 }
 
-function buildReel(id,result,extra){
-  const strip=document.getElementById("strip"+id);
-  const list=[];
+function changeMachine(){
+  if(spinning)return;
 
-  for(let i=0;i<extra;i++){
-    list.push(randomIcon());
+  const count=Number(document.getElementById("reelCount").value);
+  document.getElementById("machineTitle").textContent=getMachine().name;
+
+  const reels=document.getElementById("reels");
+  reels.innerHTML="";
+
+  for(let i=0;i<count;i++){
+    reels.innerHTML+=`<div class="reel"><div class="strip" id="strip${i}">
+      <div class="symbol">${randomIcon()}</div>
+    </div></div>`;
   }
-
-  list.push(result);
-
-  strip.innerHTML=list.map(icon=>
-    '<div class="symbol">'+icon+'</div>'
-  ).join("");
-
-  strip.style.transition="none";
-  strip.style.transform="translateY(0)";
-
-  return list.length;
 }
 
 function spin(){
   if(spinning)return;
 
-  const bet=Math.floor(
-    Number(document.getElementById("slotBet").value)
-  );
+  const bet=Math.floor(Number(document.getElementById("slotBet").value));
 
-  if(!bet || bet<1){
-    slotText("❌ Выбери ставку.");
-    return;
-  }
-
-  if(bet>balance){
-    slotText("❌ Недостаточно монет.");
-    return;
-  }
+  if(!bet || bet<1)return slotText("❌ Выбери ставку.");
+  if(bet>balance)return slotText("❌ Недостаточно монет.");
 
   spinning=true;
   balance-=bet;
   save();
 
   document.getElementById("spinBtn").disabled=true;
-  document.getElementById("machineType").disabled=true;
-  document.getElementById("reelCount").disabled=true;
 
-  const reelCount=Number(
-    document.getElementById("reelCount").value
-  );
+  const count=Number(document.getElementById("reelCount").value);
+  const results=[];
 
   slotText("🎰 БАРАБАНЫ КРУТЯТСЯ...");
 
-  const results=[];
-
-  for(let i=0;i<reelCount;i++){
-    results.push(randomIcon());
-  }
+  for(let i=0;i<count;i++)results.push(randomIcon());
 
   results.forEach((result,i)=>{
-    const amount=buildReel(
-      i,result,20+i*5
-    );
-
     const strip=document.getElementById("strip"+i);
+    const list=[];
+
+    for(let j=0;j<20+i*5;j++)list.push(randomIcon());
+    list.push(result);
+
+    strip.innerHTML=list.map(x=>`<div class="symbol">${x}</div>`).join("");
+    strip.style.transition="none";
+    strip.style.transform="translateY(0)";
 
     void strip.offsetWidth;
 
     setTimeout(()=>{
       const height=window.innerWidth<560?92:125;
-
-      strip.style.transition=
-        "transform "+(1.7+i*.5)+"s cubic-bezier(.12,.8,.15,1)";
-
-      strip.style.transform=
-        "translateY(-"+((amount-1)*height)+"px)";
+      strip.style.transition=`transform ${1.7+i*.5}s cubic-bezier(.12,.8,.15,1)`;
+      strip.style.transform=`translateY(-${(list.length-1)*height}px)`;
     },80);
   });
 
   setTimeout(()=>{
-    calculateWin(results,bet);
-
+    slotWin(results,bet);
     spinning=false;
     document.getElementById("spinBtn").disabled=false;
-    document.getElementById("machineType").disabled=false;
-    document.getElementById("reelCount").disabled=false;
-
-  },3000+reelCount*500);
+  },3000+count*500);
 }
 
-function calculateWin(results,bet){
-  const counts={};
+function slotWin(results,bet){
+  const count={};
+  results.forEach(x=>count[x]=(count[x]||0)+1);
 
-  results.forEach(icon=>{
-    counts[icon]=(counts[icon]||0)+1;
-  });
-
-  const max=Math.max(...Object.values(counts));
-
+  const max=Math.max(...Object.values(count));
   let win=0;
-  let message="😔 Не повезло!";
 
-  if(max===results.length){
-    win=bet*(results.length===5?20:10);
-    message="🔥 СУПЕР КОМБИНАЦИЯ!";
-  }
-  else if(max>=4){
-    win=bet*7;
-    message="💥 БОЛЬШОЙ ВЫИГРЫШ!";
-  }
-  else if(max>=3){
-    win=bet*3;
-    message="🎉 ВЫИГРЫШ!";
-  }
-  else if(results.length===3 && max===2){
-    win=bet*2;
-    message="✨ ПАРА!";
-  }
+  if(max===results.length)win=bet*(results.length===5?20:10);
+  else if(max>=4)win=bet*7;
+  else if(max>=3)win=bet*3;
+  else if(results.length===3 && max===2)win=bet*2;
 
   if(win){
     balance+=win;
     save();
-    slotText(message+" +"+win+" 🪙");
-    winEffect();
-  }else{
-    slotText(message);
-  }
+    slotText("🎉 ВЫИГРЫШ! +"+win+" 🪙");
+    document.getElementById("machine").classList.add("win");
+    setTimeout(()=>document.getElementById("machine").classList.remove("win"),1800);
+  }else slotText("😔 Не повезло. Попробуй ещё!");
 }
 
-function slotText(text){
-  document.getElementById("slotMessage").textContent=text;
-}
-
-function winEffect(){
-  const machine=document.getElementById("machine");
-  machine.classList.add("win");
-
-  for(let i=0;i<30;i++){
-    const particle=document.createElement("div");
-    particle.className="particle";
-    particle.textContent=
-      ["✨","🎉","⭐","💰"][
-        Math.floor(Math.random()*4)
-      ];
-
-    particle.style.left=Math.random()*100+"vw";
-    particle.style.fontSize=(18+Math.random()*20)+"px";
-    particle.style.animationDelay=Math.random()*.4+"s";
-
-    document.body.appendChild(particle);
-
-    setTimeout(()=>particle.remove(),2800);
-  }
-
-  setTimeout(()=>{
-    machine.classList.remove("win");
-  },2200);
+function slotText(t){
+  document.getElementById("slotMessage").textContent=t;
 }
 
 changeMachine();
 
-/* ===================== ДУРАК ===================== */
+/* ================= ДУРАК ================= */
 
 const suits=["♥","♦","♣","♠"];
 const ranks=["6","7","8","9","10","В","Д","К","Т"];
 
-let deck=[];
-let player=[];
-let bot=[];
-let trumpSuit="";
-let table=[];
-let phase="idle";
+let deck=[],player=[],bot=[],trumpSuit="",table=[],phase="idle";
 
-function shuffle(array){
-  for(let i=array.length-1;i>0;i--){
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
-    [array[i],array[j]]=[array[j],array[i]];
+    [a[i],a[j]]=[a[j],a[i]];
   }
 }
 
 function newGame(){
   deck=[];
-
-  suits.forEach(suit=>{
-    ranks.forEach((rank,value)=>{
-      deck.push({suit,rank,value});
-    });
-  });
-
+  suits.forEach(s=>ranks.forEach((r,v)=>deck.push({suit:s,rank:r,value:v})));
   shuffle(deck);
 
   player=[];
   bot=[];
   table=[];
-
   trumpSuit=deck[deck.length-1].suit;
 
   for(let i=0;i<6;i++){
@@ -735,46 +730,29 @@ function newGame(){
   }
 
   phase="playerAttack";
-
-  status("🟢 Твой ход! Выбери карту для атаки.");
+  status("🟢 Твой ход! Выбери карту.");
   render();
 }
 
-function isRed(card){
-  return card.suit==="♥" || card.suit==="♦";
-}
+function cardText(c){return c.rank+c.suit}
+function isRed(c){return c.suit==="♥"||c.suit==="♦"}
 
-function cardText(card){
-  return card.rank+card.suit;
-}
-
-function status(text){
-  document.getElementById("durakStatus").textContent=text;
+function status(t){
+  document.getElementById("durakStatus").textContent=t;
 }
 
 function ranksOnTable(){
-  const list=[];
-
-  table.forEach(pair=>{
-    list.push(pair.attack.rank);
-    if(pair.defense)list.push(pair.defense.rank);
+  let a=[];
+  table.forEach(p=>{
+    a.push(p.attack.rank);
+    if(p.defense)a.push(p.defense.rank);
   });
-
-  return list;
+  return a;
 }
 
-function canBeat(defense,attack){
-  if(
-    defense.suit===attack.suit &&
-    defense.value>attack.value
-  )return true;
-
-  if(
-    defense.suit===trumpSuit &&
-    attack.suit!==trumpSuit
-  )return true;
-
-  return false;
+function canBeat(d,a){
+  return (d.suit===a.suit&&d.value>a.value) ||
+    (d.suit===trumpSuit&&a.suit!==trumpSuit);
 }
 
 function render(){
@@ -782,266 +760,328 @@ function render(){
   document.getElementById("trump").textContent=trumpSuit;
   document.getElementById("botCount").textContent=bot.length;
 
-  renderBot();
-  renderPlayer();
-  renderTable();
+  const bc=document.getElementById("botCards");
+  bc.innerHTML="";
+  bot.forEach(()=>bc.innerHTML+='<div class="card back">🂠</div>');
 
-  document.getElementById("takeBtn").disabled=
-    phase!=="playerDefend";
-
-  document.getElementById("beatBtn").disabled=
-    !table.length ||
-    !table.every(pair=>pair.defense);
-
-  checkEnd();
-}
-
-function renderBot(){
-  const box=document.getElementById("botCards");
-  box.innerHTML="";
-
-  bot.forEach(()=>{
-    const card=document.createElement("div");
-    card.className="card back";
-    card.textContent="🂠";
-    box.appendChild(card);
+  const pc=document.getElementById("playerCards");
+  pc.innerHTML="";
+  player.forEach((c,i)=>{
+    pc.innerHTML+=`<div class="card ${isRed(c)?"red":""} ${phase!=="idle"?"playable":""}" onclick="playerMove(${i})">${cardText(c)}</div>`;
   });
-}
 
-function renderPlayer(){
-  const box=document.getElementById("playerCards");
-  box.innerHTML="";
-
-  player.forEach((card,index)=>{
-    const div=document.createElement("div");
-
-    div.className=
-      "card "+
-      (isRed(card)?"red ":"")+
-      (phase!=="idle"?"playable":"");
-
-    div.textContent=cardText(card);
-
-    div.onclick=()=>playerMove(index);
-
-    box.appendChild(div);
+  const tb=document.getElementById("table");
+  tb.innerHTML="";
+  table.forEach(p=>{
+    tb.innerHTML+=`<div class="pair">
+      <div class="card attack ${isRed(p.attack)?"red":""}">${cardText(p.attack)}</div>
+      ${p.defense?`<div class="card defense ${isRed(p.defense)?"red":""}">${cardText(p.defense)}</div>`:""}
+    </div>`;
   });
+
+  document.getElementById("takeBtn").disabled=phase!=="playerDefend";
+  document.getElementById("beatBtn").disabled=!table.length||!table.every(p=>p.defense);
 }
 
-function renderTable(){
-  const box=document.getElementById("table");
-  box.innerHTML="";
-
-  table.forEach(pair=>{
-    const wrap=document.createElement("div");
-    wrap.className="pair";
-
-    const attack=document.createElement("div");
-    attack.className=
-      "card attack "+
-      (isRed(pair.attack)?"red":"");
-
-    attack.textContent=cardText(pair.attack);
-    wrap.appendChild(attack);
-
-    if(pair.defense){
-      const defense=document.createElement("div");
-
-      defense.className=
-        "card defense "+
-        (isRed(pair.defense)?"red":"");
-
-      defense.textContent=cardText(pair.defense);
-      wrap.appendChild(defense);
-    }
-
-    box.appendChild(wrap);
-  });
-}
-
-function playerMove(index){
-  if(phase==="idle")return;
-
-  const card=player[index];
+function playerMove(i){
+  const c=player[i];
 
   if(phase==="playerAttack"){
-    const allowed=
-      !table.length ||
-      ranksOnTable().includes(card.rank);
-
-    if(!allowed){
-      status("❌ Подкидывать можно только подходящий ранг.");
-      return;
+    if(table.length && !ranksOnTable().includes(c.rank)){
+      return status("❌ Нужна карта подходящего достоинства.");
     }
 
-    table.push({
-      attack:card,
-      defense:null
-    });
-
-    player.splice(index,1);
+    table.push({attack:c,defense:null});
+    player.splice(i,1);
     phase="botDefend";
-
-    status("🤖 Бот думает...");
     render();
-
-    setTimeout(botDefend,600);
-    return;
+    setTimeout(botDefend,500);
   }
 
-  if(phase==="playerDefend"){
-    const target=table.find(pair=>!pair.defense);
+  else if(phase==="playerDefend"){
+    const target=table.find(p=>!p.defense);
 
-    if(!target || !canBeat(card,target.attack)){
-      status("❌ Эта карта не может побить карту.");
-      return;
-    }
+    if(!target||!canBeat(c,target.attack))
+      return status("❌ Этой картой нельзя отбиться.");
 
-    target.defense=card;
-    player.splice(index,1);
-
-    if(table.every(pair=>pair.defense)){
-      status("🛡️ Все карты отбиты! Нажми БИТО.");
-    }else{
-      status("🛡️ Защити остальные карты.");
-    }
-
+    target.defense=c;
+    player.splice(i,1);
+    status(table.every(p=>p.defense)?"🛡️ Все карты отбиты! Нажми БИТО.":"🛡️ Защищайся дальше.");
     render();
   }
 }
 
 function botDefend(){
-  const target=table.find(pair=>!pair.defense);
-
-  if(!target)return;
-
-  const options=bot.filter(card=>
-    canBeat(card,target.attack)
-  );
+  const target=table.find(p=>!p.defense);
+  const options=bot.filter(c=>canBeat(c,target.attack));
 
   if(!options.length){
-    table.forEach(pair=>{
-      bot.push(pair.attack);
-      if(pair.defense)bot.push(pair.defense);
+    table.forEach(p=>{
+      bot.push(p.attack);
+      if(p.defense)bot.push(p.defense);
     });
-
     table=[];
     refill();
-
     phase="playerAttack";
-
-    status("🤖 Бот взял карты. Ты снова ходишь!");
-    render();
-    return;
+    status("🤖 Бот взял карты. Твой ход!");
+    return render();
   }
 
-  options.sort((a,b)=>{
-    const av=a.value+(a.suit===trumpSuit?30:0);
-    const bv=b.value+(b.suit===trumpSuit?30:0);
-    return av-bv;
-  });
-
-  const defense=options[0];
-
-  target.defense=defense;
-  bot.splice(bot.indexOf(defense),1);
-
-  status("🤖 Бот отбился!");
+  options.sort((a,b)=>a.value-b.value);
+  const c=options[0];
+  target.defense=c;
+  bot.splice(bot.indexOf(c),1);
   phase="playerAttack";
+  status("🤖 Бот отбился. Можешь подкинуть карту.");
   render();
 }
 
 function takeCards(){
   if(phase!=="playerDefend")return;
 
-  table.forEach(pair=>{
-    player.push(pair.attack);
-    if(pair.defense)player.push(pair.defense);
+  table.forEach(p=>{
+    player.push(p.attack);
+    if(p.defense)player.push(p.defense);
   });
 
   table=[];
   refill();
-
   phase="botAttack";
-
   status("📥 Ты взял карты. Бот ходит.");
   render();
-
   setTimeout(botAttack,600);
 }
 
 function finishRound(){
-  if(!table.every(pair=>pair.defense)){
-    status("Сначала отбей все карты.");
-    return;
-  }
+  if(!table.every(p=>p.defense))return;
 
   table=[];
   refill();
-
   phase="botAttack";
-
   status("✅ БИТО! Бот ходит.");
   render();
-
   setTimeout(botAttack,600);
 }
 
 function botAttack(){
-  if(!bot.length){
-    checkEnd();
-    return;
-  }
+  if(!bot.length)return;
 
-  bot.sort((a,b)=>{
-    const av=a.value+(a.suit===trumpSuit?30:0);
-    const bv=b.value+(b.suit===trumpSuit?30:0);
-    return av-bv;
-  });
+  bot.sort((a,b)=>a.value-b.value);
+  const c=bot.shift();
 
-  const attack=bot.shift();
-
-  table.push({
-    attack,
-    defense:null
-  });
-
+  table.push({attack:c,defense:null});
   phase="playerDefend";
 
-  status(
-    "🤖 Бот ходит: "+
-    cardText(attack)+
-    ". Выбери карту для защиты."
-  );
-
+  status("🤖 Бот ходит: "+cardText(c));
   render();
 }
 
 function refill(){
-  while(player.length<6 && deck.length){
-    player.push(deck.pop());
+  while(player.length<6&&deck.length)player.push(deck.pop());
+  while(bot.length<6&&deck.length)bot.push(deck.pop());
+}
+
+/* ================= BLACKJACK ================= */
+
+let bjDeck=[];
+let bjPlayer=[];
+let bjDealer=[];
+let bjBet=0;
+let bjActive=false;
+
+function createBJDeck(){
+  const suits=["♠","♥","♦","♣"];
+  const ranks=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+  bjDeck=[];
+
+  suits.forEach(s=>{
+    ranks.forEach(r=>bjDeck.push({rank:r,suit:s}));
+  });
+
+  shuffle(bjDeck);
+}
+
+function cardValue(card){
+  if(["J","Q","K"].includes(card.rank))return 10;
+  if(card.rank==="A")return 11;
+  return Number(card.rank);
+}
+
+function handValue(hand){
+  let total=hand.reduce((sum,c)=>sum+cardValue(c),0);
+  let aces=hand.filter(c=>c.rank==="A").length;
+
+  while(total>21&&aces>0){
+    total-=10;
+    aces--;
   }
 
-  while(bot.length<6 && deck.length){
-    bot.push(deck.pop());
+  return total;
+}
+
+function startBlackjack(){
+  const bet=Math.floor(Number(document.getElementById("bjBet").value));
+
+  if(!bet||bet<1)return bjMessage("❌ Выбери ставку.");
+  if(bet>balance)return bjMessage("❌ Недостаточно игровых монет.");
+
+  balance-=bet;
+  save();
+
+  bjBet=bet;
+  bjActive=true;
+
+  createBJDeck();
+  bjPlayer=[];
+  bjDealer=[];
+
+  bjPlayer.push(bjDeck.pop());
+  bjDealer.push(bjDeck.pop());
+
+  setTimeout(()=>{
+    bjPlayer.push(bjDeck.pop());
+    bjDealer.push(bjDeck.pop());
+
+    renderBJ();
+
+    const score=handValue(bjPlayer);
+
+    if(score===21){
+      bjMessage("🔥 BLACKJACK!");
+      setTimeout(stand,800);
+    }else{
+      bjMessage("🃏 Твой ход: взять карту или хватит?");
+    }
+
+    document.getElementById("hitBtn").disabled=false;
+    document.getElementById("standBtn").disabled=false;
+
+  },300);
+}
+
+function renderBJ(reveal=false){
+  const playerBox=document.getElementById("bjPlayerCards");
+  const dealerBox=document.getElementById("dealerCards");
+
+  playerBox.innerHTML="";
+  dealerBox.innerHTML="";
+
+  bjPlayer.forEach(card=>playerBox.appendChild(createBJCard(card)));
+
+  bjDealer.forEach((card,i)=>{
+    if(i===1&&!reveal&&bjActive){
+      const hidden=document.createElement("div");
+      hidden.className="bj-card hidden-card";
+      hidden.textContent="♠";
+      dealerBox.appendChild(hidden);
+    }else{
+      dealerBox.appendChild(createBJCard(card));
+    }
+  });
+
+  document.getElementById("playerScore").textContent=handValue(bjPlayer);
+  document.getElementById("dealerScore").textContent=
+    reveal||!bjActive?handValue(bjDealer):"?";
+}
+
+function createBJCard(card){
+  const div=document.createElement("div");
+  const red=card.suit==="♥"||card.suit==="♦";
+
+  div.className="bj-card "+(red?"red-card":"");
+  div.innerHTML=`
+    <span>${card.rank}${card.suit}</span>
+    <span class="big">${card.suit}</span>
+    <span style="align-self:flex-end">${card.rank}</span>
+  `;
+
+  return div;
+}
+
+function hit(){
+  if(!bjActive)return;
+
+  bjPlayer.push(bjDeck.pop());
+  renderBJ();
+
+  const score=handValue(bjPlayer);
+
+  if(score>21){
+    endBJ("💥 ПЕРЕБОР! Ты проиграл.",0);
+  }else if(score===21){
+    bjMessage("21! Теперь ход дилера...");
+    setTimeout(stand,600);
+  }else{
+    bjMessage("🃏 У тебя "+score+". Продолжить?");
   }
 }
 
-function checkEnd(){
-  if(deck.length || table.length)return;
+function stand(){
+  if(!bjActive)return;
 
-  if(!player.length && !bot.length){
-    status("🤝 Ничья!");
-    phase="idle";
+  document.getElementById("hitBtn").disabled=true;
+  document.getElementById("standBtn").disabled=true;
+
+  bjMessage("🎩 Дилер открывает карты...");
+  renderBJ(true);
+
+  setTimeout(dealerPlay,700);
+}
+
+function dealerPlay(){
+  if(!bjActive)return;
+
+  if(handValue(bjDealer)<17){
+    bjDealer.push(bjDeck.pop());
+    renderBJ(true);
+    setTimeout(dealerPlay,650);
+    return;
   }
-  else if(!player.length){
-    status("🏆 ТЫ ВЫИГРАЛ!");
-    phase="idle";
+
+  const p=handValue(bjPlayer);
+  const d=handValue(bjDealer);
+
+  if(d>21||p>d){
+    endBJ("🏆 ТЫ ВЫИГРАЛ!",bjBet*2);
+  }else if(p===d){
+    endBJ("🤝 НИЧЬЯ! Ставка возвращена.",bjBet);
+  }else{
+    endBJ("😔 Дилер выиграл.",0);
   }
-  else if(!bot.length){
-    status("🤖 Бот выиграл!");
-    phase="idle";
+}
+
+function endBJ(message,payout){
+  bjActive=false;
+
+  if(payout>0){
+    balance+=payout;
+    save();
   }
+
+  renderBJ(true);
+  bjMessage(message+(payout?" +"+payout+" 🪙":""));
+
+  if(payout>bjBet){
+    const room=document.getElementById("blackjackRoom");
+    room.classList.add("blackjack-win");
+
+    const pop=document.createElement("div");
+    pop.className="win-popup";
+    pop.textContent="🏆 ВЫИГРЫШ!";
+    document.body.appendChild(pop);
+
+    setTimeout(()=>{
+      room.classList.remove("blackjack-win");
+      pop.remove();
+    },2000);
+  }
+
+  document.getElementById("hitBtn").disabled=true;
+  document.getElementById("standBtn").disabled=true;
+}
+
+function bjMessage(text){
+  document.getElementById("bjStatus").textContent=text;
 }
 </script>
 
